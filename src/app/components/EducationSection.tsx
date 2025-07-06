@@ -1,6 +1,4 @@
 
-// this is goat and this is absolute best i have choosen this ok 
-
 "use client";
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
@@ -166,13 +164,3 @@ const Education = () => {
 };
 
 export default Education;
-
-
-
-
-
-
-
-
-
-
