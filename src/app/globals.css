@@ -1,26 +1,192 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-inter: 'Inter', sans-serif;
+    --color-primary: #18181b;  /* zinc-900 */
+    --color-secondary: #3f3f46; /* zinc-700 */
+    --color-accent: #ffffff;    /* white */
+  }
+  
+  * {
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-inter);
+  }
+
+  /* Fix for SVG icons */
+  svg {
+    fill: currentColor !important;
+    color: inherit !important;
+  }
+
+  body {
+    @apply bg-black text-gray-100 min-h-screen;
+  }
+
+  /* Override black text for dark theme */
+  h1, h2, h3, h4, p, a {
+    @apply text-gray-100;
+  }
+
+  canvas {
+    @apply absolute top-0 left-0 z-0;
+    image-rendering: crisp-edges;
+    filter: brightness(20%);
+  
+  }
+
+  button {
+    @apply transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black;
+  }
+
+  a {
+    @apply transition-colors duration-300 hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-bold tracking-tighter;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .glass-morphism {
+    @apply bg-black/80 backdrop-blur-xl border border-gray-500/30;
+  }
+
+  .hero-text {
+    font-size: clamp(2rem, 8vw, 5rem);
+    line-height: 1;
+    @apply font-extrabold tracking-tighter text-gray-100;
+  }
+  
+  .section-title {
+    @apply relative inline-block pb-2 text-3xl font-bold text-gray-100;
+    
+    &::after {
+      @apply content-[''] absolute w-full h-[2px] -bottom-1 left-0 bg-gray-300 origin-left scale-x-100 transition-transform duration-300;
+    }
+    
+    &:hover::after {
+      @apply scale-x-105;
+    }
+  }
+  
+  .project-card {
+    @apply glass-morphism relative overflow-hidden transition-transform duration-300 hover:-translate-y-2 rounded-3xl shadow-2xl;
+  }
+  
+  .skill-pill {
+    @apply px-4 py-2 rounded-full border border-gray-500 bg-black/50 transition-all duration-300 
+           hover:bg-gray-800 hover:border-gray-400;
+  }
+  
+  .timeline-item {
+    @apply relative pl-8 border-l-2 border-gray-500/30;
+    
+    &::before {
+      @apply content-[''] absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-gray-300 border-4 border-black;
+    }
+  }
+
+  /* Fix for social icons */
+  .social-icon {
+    @apply text-gray-100 hover:text-white transition-colors duration-300;
+    svg {
+      @apply w-8 h-8;
+    }
+  }
 }
+
+@layer utilities {
+  /* Add these new utilities */
+  .text-gradient {
+    @apply bg-gradient-to-r from-gray-300 to-white bg-clip-text text-transparent;
+  }
+
+  .backdrop-blur-md {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .backdrop-blur-xl {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  /* Neural network background effect */
+  .neural-bg {
+    background-image: 
+      radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+  }
+
+  /* Animation keyframes */
+  @keyframes pulse-glow {
+    0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); }
+    100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
+  }
+
+  .pulse-glow {
+    animation: pulse-glow 3s infinite;
+  }
+
+  /* Scroll animations */
+  @keyframes synapse-pulse {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.05; }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

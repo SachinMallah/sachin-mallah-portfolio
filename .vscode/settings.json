@@ -1,0 +1,12 @@
+{
+    "css.validate": false,
+    "tailwindCSS.includeLanguages": {
+      "postcss": "css"
+    },
+    "files.associations": {
+      "*.css": "postcss"
+    },
+    "editor.quickSuggestions": {
+      "strings": true
+    }
+  }
