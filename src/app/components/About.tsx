@@ -1,114 +1,108 @@
 'use client'
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
+
+const textContent = {
+  welcome: "Welcome! Thanks for taking the time to check out my website.",
+  aboutMeCommand: "sachin@portfolio:~$ about_me",
+  aboutMeLines: [
+    "• Hi, I'm Sachin Kumar Dinesh Chandra Mallah — a passionate AI/ML undergraduate (2nd year, Mumbai University) with a strong technical and mathematical background.",
+    "• I love solving real-world problems using artificial intelligence and modern web technologies. My experience spans data science, deep learning, and full stack web development.",
+    "• Notable Project: Reddit Sentiment Analysis Dashboard Built a real-time sentiment analysis dashboard for any Reddit topic with interactive visualizations like sentiment distribution and word clouds. Developed using Python, PRAW, Streamlit, Plotly, VADER, and NLTK. This project enhanced my skills in NLP, real-time data extraction, data visualization, and deploying AI web apps.",
+    "• Actively seeking internships, research opportunities, and collaborations that challenge me to grow as a technologist and problem-solver."
+  ],
+  strengthsCommand: "sachin@portfolio:~$ current_strengths",
+  strengthsLines: [
+    "• Data Science, Machine Learning, AI automation, Deep Learning, and Full Stack Web Development.",
+    "• Strong foundation in Linear Algebra, Probability, Statistics, and Calculus.",
+    "• Quick learner—confident I can figure out anything I set my mind to.",
+    "Always excited to collaborate and connect with passionate minds in tech!"
+  ]
+};
 
 const About = () => {
-  // Intersection Observer setup
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
-
-  // Typing animation states
+  
   const [welcome, setWelcome] = useState('')
   const [aboutMeCommand, setAboutMeCommand] = useState('')
-  const [aboutMeLines, setAboutMeLines] = useState([])
+  const [aboutMeLines, setAboutMeLines] = useState<string[]>([])
   const [strengthsCommand, setStrengthsCommand] = useState('')
-  const [strengthsLines, setStrengthsLines] = useState([])
-  const [isTypingComplete, setIsTypingComplete] = useState(false)
+  const [strengthsLines, setStrengthsLines] = useState<string[]>([])
   const [typingStage, setTypingStage] = useState(0)
 
-  // 3D card effect motion values
+  
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   const rotateX = useMotionValue(0)
   const rotateY = useMotionValue(0)
   const transform = useMotionTemplate`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
 
-  // Content configuration
-  const textContent = {
-    welcome: "Welcome! Thanks for taking the time to check out my website.",
-    aboutMeCommand: "sachin@portfolio:~$ about_me",
-    aboutMeLines: [
-      "• Hi, I'm Sachin Kumar Dinesh Chandra Mallah — a passionate AI/ML undergraduate (2nd year, Mumbai University) with a strong technical and mathematical background.",
-      "• I love solving real-world problems using artificial intelligence and modern web technologies. My experience spans data science, deep learning, and full stack web development.",
-      "• Notable Project: Reddit Sentiment Analysis Dashboard Built a real-time sentiment analysis dashboard for any Reddit topic with interactive visualizations like sentiment distribution and word clouds. Developed using Python, PRAW, Streamlit, Plotly, VADER, and NLTK. This project enhanced my skills in NLP, real-time data extraction, data visualization, and deploying AI web apps.",
-      "• Actively seeking internships, research opportunities, and collaborations that challenge me to grow as a technologist and problem-solver."
-    ],
-    strengthsCommand: "sachin@portfolio:~$ current_strengths",
-    strengthsLines: [
-      "• Data Science, Machine Learning, AI automation, Deep Learning, and Full Stack Web Development.",
-      "• Strong foundation in Linear Algebra, Probability, Statistics, and Calculus.",
-      "• Quick learner—confident I can figure out anything I set my mind to.",
-      "Always excited to collaborate and connect with passionate minds in tech!"
-    ]
-  }
-
-  // Typing animation effect
+  
   useEffect(() => {
-    if (!inView) return
+    let isCancelled = false 
 
-    const typeString = async (text, updater) => {
+    const typeString = async (text: string, updater: (val: string) => void) => {
       for (let i = 0; i <= text.length; i++) {
+        if (isCancelled) return
         updater(text.substring(0, i))
         await new Promise(resolve => setTimeout(resolve, 20))
       }
     }
 
     const typeText = async () => {
-      // Stage 1: Welcome message
       await typeString(textContent.welcome, setWelcome)
       setTypingStage(1)
       await new Promise(resolve => setTimeout(resolve, 700))
 
-      // Stage 2: About Me command
       await typeString(textContent.aboutMeCommand, setAboutMeCommand)
       setTypingStage(2)
       await new Promise(resolve => setTimeout(resolve, 500))
 
-      // Stage 3: About Me content
-      let aboutLines = []
       for (let i = 0; i < textContent.aboutMeLines.length; i++) {
         await typeString(textContent.aboutMeLines[i], (t) => {
-          aboutLines[i] = t
-          setAboutMeLines([...aboutLines])
+          setAboutMeLines(prev => {
+            const newLines = [...prev]
+            newLines[i] = t
+            return newLines
+          })
         })
       }
       setTypingStage(3)
       await new Promise(resolve => setTimeout(resolve, 1000))
 
-      // Stage 4: Strengths command
       await typeString(textContent.strengthsCommand, setStrengthsCommand)
       setTypingStage(4)
       await new Promise(resolve => setTimeout(resolve, 500))
 
-      // Stage 5: Strengths content
-      let strengthsArr = []
       for (let i = 0; i < textContent.strengthsLines.length; i++) {
         await typeString(textContent.strengthsLines[i], (t) => {
-          strengthsArr[i] = t
-          setStrengthsLines([...strengthsArr])
+          setStrengthsLines(prev => {
+            const newLines = [...prev]
+            newLines[i] = t
+            return newLines
+          })
         })
       }
-
-      setIsTypingComplete(true)
     }
 
     typeText()
-  }, [inView])
+    return () => { isCancelled = true }
+  }, [])
 
-  // Mouse move handler for 3D effect
-  const handleMouseMove = (e) => {
+  
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
     mouseX.set(e.clientX - left)
     mouseY.set(e.clientY - top)
-    rotateX.set((e.clientY - (top + height/2)) / 20)
-    rotateY.set(-(e.clientX - (left + width/2)) / 20)
+    rotateX.set((e.clientY - (top + height / 2)) / 20)
+    rotateY.set(-(e.clientX - (left + width / 2)) / 20)
   }
 
   return (
-    <section id="about" className="relative py-20 bg-black overflow-hidden" ref={ref}>
+    <section id="about" className="relative py-20 bg-black overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Title Section */}
-        <motion.h2 
+        
+        <motion.h2
           className="text-4xl font-bold text-center mb-16 text-white"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -118,11 +112,11 @@ const About = () => {
           <p className="text-xl text-gray-300 mt-4">The Developer Behind the Code</p>
         </motion.h2>
 
-        {/* Content Grid */}
+        
         <div className="flex flex-col lg:flex-row gap-12 items-center">
+
           
-          {/* 3D Profile Card */}
-          <motion.div 
+          <motion.div
             className="relative group w-full lg:w-1/3"
             onMouseMove={handleMouseMove}
             onMouseLeave={() => {
@@ -131,17 +125,19 @@ const About = () => {
             }}
           >
             <div className="absolute -inset-2 bg-gradient-to-r from-gray-500/30 to-gray-700/30 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl" />
-            
+
             <motion.div
               style={{ transform }}
               className="bg-black/80 backdrop-blur-xl rounded-3xl border-2 border-gray-500/30 shadow-2xl overflow-hidden p-4"
             >
-              <img 
-                src="/images/sachin.png" 
-                alt="Sachin Kumar" 
+              <Image
+                src="/images/sachin.png"
+                alt="Sachin Kumar"
+                width={3684}
+                height={4906}
                 className="w-full h-full object-cover rounded-2xl border-2 border-gray-500/30"
               />
-              <motion.div 
+              <motion.div
                 className="absolute bottom-0 left-0 right-0 bg-black/80 p-4 text-center"
                 initial={{ y: 20 }}
                 animate={{ y: 0 }}
@@ -156,8 +152,8 @@ const About = () => {
             </motion.div>
           </motion.div>
 
-          {/* Terminal Interface */}
-          <motion.div 
+          
+          <motion.div
             className="w-full lg:w-2/3 bg-black/80 backdrop-blur-xl rounded-3xl border-2 border-gray-500/30 shadow-2xl overflow-hidden"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -173,10 +169,10 @@ const About = () => {
 
             <div className="terminal-content p-6 font-mono text-gray-300 min-h-[400px] relative">
               <div className="space-y-4">
-                {/* Welcome Message */}
+                
                 <motion.p>{welcome}</motion.p>
 
-                {/* About Me Section */}
+                
                 {typingStage >= 1 && (
                   <div className="mt-4">
                     <p className="text-green-400">$ {aboutMeCommand}</p>
@@ -190,7 +186,7 @@ const About = () => {
                   </div>
                 )}
 
-                {/* Strengths Section */}
+                
                 {typingStage >= 3 && (
                   <div className="mt-6">
                     <p className="text-green-400">$ {strengthsCommand}</p>
@@ -204,24 +200,19 @@ const About = () => {
                   </div>
                 )}
 
-                {/* Terminal Prompt */}
-                {isTypingComplete && (
-                  <div className="mt-6 flex items-center text-green-400">
-                    <span>$</span>
-                    <div className="ml-2 w-3 h-5 bg-green-400 animate-pulse" />
-                  </div>
-                )}
+                
+                <div className="mt-6 flex items-center text-green-400">
+                  <span>$</span>
+                  <div className="ml-2 w-3 h-5 bg-green-400 animate-pulse" />
+                </div>
               </div>
 
-              {/* Background Grid */}
+              
               <div className="absolute inset-0 bg-grid opacity-10 pointer-events-none" />
             </div>
           </motion.div>
         </div>
       </div>
-
-      {/* Background Gradient */}
-      {/* <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 to-black/80 z-0" /> */}
     </section>
   )
 }

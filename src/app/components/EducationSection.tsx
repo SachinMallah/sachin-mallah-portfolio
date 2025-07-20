@@ -1,10 +1,22 @@
-
 "use client";
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { GraduationCap, MapPin } from 'lucide-react';
 
-const educationData = [
+type EducationItem = {
+  id: string;
+  title: string;
+  institution: string;
+  location: string;
+  year: string;
+  description: string;
+};
+
+type TimelineNodeProps = {
+  index: number;
+};
+
+const educationData: EducationItem[] = [
   {
     id: "edu-1",
     title: "Honours Bachelor of Science – Computer Science Specialization in AI & ML",
@@ -23,8 +35,7 @@ const educationData = [
   },
 ];
 
-// Timeline Node Component
-const TimelineNode = ({ index }) => (
+const TimelineNode: React.FC<TimelineNodeProps> = ({ index }) => (
   <div className={`absolute left-1/2 -translate-x-1/2 ${index === 0 ? 'top-[15%]' : 'bottom-[15%]'}`}>
     <div className="w-6 h-6 bg-white rounded-full border-2 border-gray-300 shadow-lg flex items-center justify-center">
       <div className="w-2 h-2 bg-gray-400 rounded-full" />
@@ -32,41 +43,39 @@ const TimelineNode = ({ index }) => (
   </div>
 );
 
-const Education = () => {
-  const sectionRef = useRef(null);
-  const cardsRef = useRef([]);
+const Education: React.FC = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  const cardsRef = useRef<Array<HTMLDivElement | null>>([]);
   const [loaded, setLoaded] = useState(false);
+
   const { scrollYProgress } = useScroll({ target: sectionRef });
   const pathLength = useSpring(useTransform(scrollYProgress, [0, 1], [0, 1]), {
     stiffness: 100,
     damping: 30
   });
 
-  // 3D Card Tilt Effect Handler
-  const handleMouseMove = (e, index) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
     const card = cardsRef.current[index];
     if (!card) return;
-    
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const rotateY = (x - rect.width/2) / 20;
-    const rotateX = (y - rect.height/2) / -20;
-    
+    const rotateY = (x - rect.width / 2) / 20;
+    const rotateX = (y - rect.height / 2) / -20;
     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    card.style.boxShadow = `${-rotateY*3}px ${rotateX*3}px 30px rgba(255,255,255,0.1)`;
+    card.style.boxShadow = `${-rotateY * 3}px ${rotateX * 3}px 30px rgba(255,255,255,0.1)`;
   };
 
-  // Reset Card Position on Mouse Leave
-  const handleMouseLeave = (index) => {
+  
+  const handleMouseLeave = (index: number) => {
     const card = cardsRef.current[index];
     if (!card) return;
-    
     card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
     card.style.boxShadow = '0 25px 50px rgba(0,0,0,0.3)';
   };
 
-  // Simulate Loading State
+  
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 500);
     return () => clearTimeout(timer);
@@ -75,7 +84,7 @@ const Education = () => {
   return (
     <section ref={sectionRef} id="education" className="relative min-h-screen bg-black overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-20">
-        {/* Animated Header Section */}
+        
         <AnimatePresence>
           {loaded && (
             <motion.div
@@ -90,17 +99,15 @@ const Education = () => {
           )}
         </AnimatePresence>
 
-        {/* Animated Timeline Line */}
         <motion.div
-          className="absolute left-1/2 top-0 w-1 h-full bg-gradient-to-b from-gray-300 "
+          className="absolute left-1/2 top-0 w-1 h-full bg-gradient-to-b from-gray-300"
           style={{ scaleY: pathLength }}
         />
 
-        {/* Cards Container */}
         <div className="relative space-y-32">
           <AnimatePresence>
             {loaded && educationData.map((item, index) => (
-              <motion.div 
+              <motion.div
                 key={item.id}
                 className="relative flex justify-center items-center min-h-[50vh]"
                 initial={{ opacity: 0 }}
@@ -108,29 +115,26 @@ const Education = () => {
                 viewport={{ margin: "-20% 0px" }}
               >
                 <TimelineNode index={index} />
-
-                {/* Glass-morphism Card with 3D Effect */}
-                <motion.div 
-                  ref={el => cardsRef.current[index] = el}
+                
+                <motion.div
+                  ref={el => { cardsRef.current[index] = el; }} 
                   className={`w-full max-w-2xl bg-black/80 backdrop-blur-xl rounded-3xl p-8 border-2 border-gray-500/30 relative shadow-2xl cursor-pointer
                     ${index % 2 === 0 ? "lg:ml-32" : "lg:mr-32"}`}
-                  style={{ 
+                  style={{
                     transformStyle: 'preserve-3d',
-                    willChange: 'transform, opacity' 
+                    willChange: 'transform, opacity'
                   }}
                   onMouseMove={(e) => handleMouseMove(e, index)}
                   onMouseLeave={() => handleMouseLeave(index)}
-                  whileHover={{ 
+                  whileHover={{
                     zIndex: 1,
                     scale: 1.02,
                     transition: { type: 'spring', mass: 0.5 }
                   }}
                 >
-                  {/* Card Background Effects */}
-                  <div className="absolute inset-0 rounded-3xl border-2 border-gray-500/20" />
-                  <div className="absolute -inset-<h1 className2 bg-gray-500/10 filter blur-3xl" />
                   
-                  {/* Card Content */}
+                  <div className="absolute inset-0 rounded-3xl border-2 border-gray-500/20" />
+                  
                   <div className="relative z-10 space-y-4">
                     <div className="flex items-center justify-between mb-6">
                       <div className="flex items-center gap-4">
@@ -141,14 +145,11 @@ const Education = () => {
                         {item.year}
                       </span>
                     </div>
-
                     <h3 className="text-2xl font-bold text-gray-100 mb-4">{item.title}</h3>
-
                     <div className="flex items-center gap-2 text-gray-400 mb-4">
                       <MapPin className="w-5 h-5 text-gray-300" />
                       <span>{item.location}</span>
                     </div>
-
                     <p className="text-gray-300 leading-relaxed border-t border-gray-700 pt-4">
                       {item.description}
                     </p>

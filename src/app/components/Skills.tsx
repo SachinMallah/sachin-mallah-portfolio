@@ -3,6 +3,19 @@ import React from 'react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+type SkillItem = {
+  name: string;
+  icon: React.ElementType;
+};
+
+type SkillMarqueeProps = {
+  items: SkillItem[];
+  speed?: number;
+};
+
+type IconProps = {
+  className?: string;
+};
 const Skills = () => {
   const skills = { 
     languages: [
@@ -26,7 +39,6 @@ const Skills = () => {
               { name: 'MLflow', icon: MlflowIcon },
               { name: 'JAX', icon: JaxIcon },
               { name: 'Dask', icon: DaskIcon },
-              // { name: 'TorchServe', icon: TorchServeIcon },
               { name: 'ONNX', icon: OnnxIcon }
             ],
             visualization: [
@@ -52,7 +64,6 @@ const Skills = () => {
               { name: 'Next.js', icon: NextjsIcon },
               { name: 'Tailwind CSS', icon: TailwindIcon },
               { name: 'GraphQL', icon: GraphqlIcon },
-              // { name: 'Zod', icon: ZodIcon }
             ],
             backend: [
               { name: 'Node.js', icon: NodejsIcon },
@@ -73,7 +84,6 @@ const Skills = () => {
             { name: 'Docker', icon: DockerIcon },
             { name: 'Vercel', icon: VercelIcon },
             { name: 'Netlify', icon: NetlifyIcon },
-            // { name: 'Railway', icon: RailwayIcon },
             { name: 'AWS', icon: AwsIcon },
             { name: 'GCP', icon: GcpIcon },
             { name: 'Azure', icon: AzureIcon },
@@ -86,20 +96,18 @@ const Skills = () => {
             { name: 'Jupyter Notebook', icon: JupyterIcon },
             { name: 'Google Colab', icon: ColabIcon },
             { name: 'Postman', icon: PostmanIcon },
-            // { name: 'Thunder Client', icon: ThunderClientIcon },
-            // { name: 'Draw.io', icon: DrawioIcon },
             { name: 'Figma', icon: FigmaIcon },
             { name: 'Notion', icon: NotionIcon },
-            // { name: 'Obsidian', icon: ObsidianIcon },
             { name: 'Airflow', icon: AirflowIcon },
             { name: 'Prefect', icon: PrefectIcon },
             { name: 'Weights & Biases', icon: WandbIcon },
-            // { name: 'DVC', icon: DvcIcon }
           ]
         };
 
-        const SkillMarquee = ({ items, speed = 50 }) => {
-          const [hoveredIndex, setHoveredIndex] = useState(null);
+        const SkillMarquee: React.FC<SkillMarqueeProps> = ({ items, speed = 50 }) => {
+
+          const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
         
           return (
             <div className="relative overflow-hidden py-8 -mx-[100vw] px-[100vw]">
@@ -127,11 +135,10 @@ const Skills = () => {
                       whileHover={{ scale: 1.2 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      {/* Shadow and glow effects */}
+                      
                       <div className="absolute inset-0 bg-white/10 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <Icon className="w-20 h-20 text-gray-300/90 group-hover:text-white transition-colors duration-300 filter drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]" />
                       
-                      {/* Name Tooltip */}
                       {hoveredIndex === idx && (
                         <motion.div
                           className="absolute -bottom-2 left-1/2 -translate-x-1/2 text-white text-sm font-medium whitespace-nowrap"
@@ -164,27 +171,21 @@ const Skills = () => {
                 </motion.div>
               </AnimatePresence>
         
-              {/* Languages Section */}
               <div className="mb-16">
                 <h3 className="text-3xl font-bold text-white mb-8 text-center">Languages</h3>
                 <SkillMarquee items={skills.languages} speed={40} />
               </div>
         
-
-              {/* Machine Learning Section */}
               <div className="mb-16">
                 <h3 className="text-3xl font-bold text-white mb-8 text-center">Machine Learning</h3>
                 <SkillMarquee items={skills.machineLearning.frameworks} speed={50} />
               </div>
 
-
-              {/* Web Development Section */}
               <div className="mb-16">
                 <h3 className="text-3xl font-bold text-white mb-8 text-center">Web Development</h3>
                 <SkillMarquee items={skills.webDevelopment.frontend} speed={45} />
               </div>
         
-              {/* Deployment Section */}
               <div className="mb-16">
                 <h3 className="text-3xl font-bold text-white mb-8 text-center">Deployment</h3>
                 <SkillMarquee items={skills.deployment} speed={35} />
@@ -194,6 +195,7 @@ const Skills = () => {
         );
       };
       
+
 // Example icon component with updated styling
 
 // const PythonIcon = () => (
@@ -214,37 +216,6 @@ const Skills = () => {
 //     />
 //   </svg>
 // );
-
-
-// const PythonIcon = () => (
-//   <svg 
-//     viewBox="0 0 128 128" 
-//     className="w-20 h-20 overflow-visible filter drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]"
-//     xmlns="http://www.w3.org/2000/svg"
-//   >
-//     {/* Blue Part with Shine Effect */}
-//     <path 
-//       fill="#306998" 
-//       d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z" 
-//       transform="translate(0 10.26)"
-//       // className="transition-all duration-300 group-hover:drop-shadow-[0_0_20px_#306998]"
-//     />
-    
-//     {/* Yellow Part with Shine Effect */}
-//     <path 
-//       fill="#FFD43B" 
-//       d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z" 
-//       transform="translate(0 10.26)"
-//       // className="transition-all duration-300 group-hover:drop-shadow-[0_0_20px_#FFD43B]"
-//     />
-    
-//     {/* Add subtle white shadow base */}
-//     {/* <filter id="python-glow"> */}
-//       {/* <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="white" floodOpacity="0.2"/> */}
-//     {/* </filter> */}
-//   </svg>
-// );
-
 const PythonIcon = () => (
   <svg 
     viewBox="0 0 128 128" 
@@ -265,68 +236,7 @@ const PythonIcon = () => (
 );
 
 
-
-// const PythonIcon = () => (
-//   <svg 
-//     viewBox="0 0 128 128" 
-//     className="w-20 h-20"
-//     xmlns="http://www.w3.org/2000/svg"
-//   >
-//     {/* Blue Part */}
-//     <path 
-//       fill="#306998" 
-//       d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z" 
-//       transform="translate(0 10.26)"
-//     />
-//     {/* Yellow Part */}
-//     <path 
-//       fill="#FFD43B" 
-//       d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z" 
-//       transform="translate(0 10.26)"
-//     />
-//   </svg>
-// );
-
-
 // C++
-
-// const CppIcon = ({ className }) => (
-//   <svg
-//     role="img"
-//     viewBox="0 0 24 24"
-//     xmlns="http://www.w3.org/2000/svg"
-//     className={className}
-//   >
-//     <title>C++</title>
-//     <path
-//       fill="#00599C"
-//       d="M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91.167.29.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69.167-.29.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91zM12 19.11c-3.92 0-7.109-3.19-7.109-7.11 0-3.92 3.19-7.11 7.11-7.11a7.133 7.133 0 016.156 3.553l-3.076 1.78a3.567 3.567 0 00-3.08-1.78A3.56 3.56 0 008.444 12 3.56 3.56 0 0012 15.555a3.57 3.57 0 003.08-1.778l3.078 1.78A7.135 7.135 0 0112 19.11zm7.11-6.715h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79z"
-//     />
-//     <path
-//       fill="#FFFFFF"
-//       d="M19.11 12.395h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79z"
-//     />
-//   </svg>
-// );
-
-// const CppIcon = ({ className = "" }) => (
-//   <svg
-//     role="img"
-//     viewBox="0 0 24 24"
-//     xmlns="http://www.w3.org/2000/svg"
-//     className={`logo-icon logo-cpp ${className}`}
-//   >
-//     <title>C++</title>
-//     <path
-//       fill="#00599C"
-//       d="M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91.167.29.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69.167-.29.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91zM12 19.11c-3.92 0-7.109-3.19-7.109-7.11 0-3.92 3.19-7.11 7.11-7.11a7.133 7.133 0 016.156 3.553l-3.076 1.78a3.567 3.567 0 00-3.08-1.78A3.56 3.56 0 008.444 12 3.56 3.56 0 0012 15.555a3.57 3.57 0 003.08-1.778l3.078 1.78A7.135 7.135 0 0112 19.11zm7.11-6.715h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79z"
-//     />
-//     <path
-//       fill="#FFFFFF"
-//       d="M19.11 12.395h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79z"
-//     />
-//   </svg>
-// );
 
 
 const CppIcon = ({ className = "" }) => (
@@ -353,7 +263,7 @@ const CppIcon = ({ className = "" }) => (
 
 // JavaScripts
 
-const JavascriptIcon = ({ className }) => (
+const JavascriptIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
     viewBox="0 0 630 630" 
     className={className} 
@@ -366,7 +276,7 @@ const JavascriptIcon = ({ className }) => (
 
 // java 
 
-const JavaIcon = ({ className }) => (
+const JavaIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
     viewBox="0 0 128 128"
     className={className}
@@ -386,7 +296,7 @@ const JavaIcon = ({ className }) => (
 
 // html
 
-const HtmlIcon = ({ className }) => (
+const HtmlIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
     viewBox="0 0 128 128"
     className={className}
@@ -403,7 +313,7 @@ const HtmlIcon = ({ className }) => (
 
 // CSS
 
-const CssIcon = ({ className }) => (
+const CssIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
     viewBox="0 0 128 128"
     className={className}
@@ -426,7 +336,7 @@ const CssIcon = ({ className }) => (
 
 // my sql 
 
-const SqlIcon = ({ className }) => (
+const SqlIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
     viewBox="0 0 128 128"
     className={className}
@@ -444,7 +354,7 @@ const SqlIcon = ({ className }) => (
 
 // sql database
 
-const SqldatabaseIcon = ({ className }) => (
+const SqldatabaseIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
     viewBox="0 0 128 128"
     className={className}
@@ -498,7 +408,7 @@ const SqldatabaseIcon = ({ className }) => (
 
 // numpy
 
-const NumpyIcon = ({ className }) => (
+const NumpyIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
     viewBox="0 0 128 128"
     className={className}
@@ -513,7 +423,7 @@ const NumpyIcon = ({ className }) => (
 
 // pandas
 
-const PandasIcon = ({ className }) => (
+const PandasIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
     viewBox="0 0 128 128"
     className={className}
@@ -531,7 +441,7 @@ const PandasIcon = ({ className }) => (
 
 // Scikit-learn
 
-const SklearnIcon = ({ className }) => (
+const SklearnIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
     viewBox="0 0 128 128"
     className={className}
@@ -551,7 +461,7 @@ const SklearnIcon = ({ className }) => (
 // scipy
 
 // black and white scipy as i not got the coloured scipy SVG code :)
-const SciPyIcon = ({ className }) => (
+const SciPyIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     role="img"
     viewBox="0 0 24 24"
@@ -565,7 +475,7 @@ const SciPyIcon = ({ className }) => (
 
 // matplotlib
 
-const MatplotlibIcon = ({ className }) => (
+const MatplotlibIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     className={className}
@@ -590,10 +500,8 @@ const MatplotlibIcon = ({ className }) => (
   </svg>
 );
 
-
 // seaborn
-
-const SeabornIcon = ({ className }) => (
+const SeabornIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 256 256"
@@ -621,8 +529,7 @@ const SeabornIcon = ({ className }) => (
 );
 
 // Xgboost
-
-const XgboostIcon = ({ className }) => (
+const XgboostIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -643,8 +550,7 @@ const XgboostIcon = ({ className }) => (
 );
 
 // lightbgm
-
-const LightgbmIcon = ({ className }) => (
+const LightgbmIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 200 50"
@@ -666,10 +572,8 @@ const LightgbmIcon = ({ className }) => (
   </svg>
 );
 
-
 // catboost
-
-const CatboostIcon = ({ className }) => (
+const CatboostIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 650 584"
     xmlns="http://www.w3.org/2000/svg"
@@ -678,23 +582,17 @@ const CatboostIcon = ({ className }) => (
     aria-label="CatBoost"
   >
     <title>CatBoost</title>
-    {/* Yellow hexagonal background */}
     <polygon
       points="0,0 520,0 650,292 520,584 0,584"
       fill="#FFD600"
     />
-    {/* Central large red circle */}
     <circle cx="320" cy="400" r="110" fill="#F90000" />
-    {/* Left white branch */}
     <rect x="180" y="320" width="20" height="120" rx="10" transform="rotate(-30 190 380)" fill="#fff" />
     <circle cx="120" cy="320" r="45" fill="#fff" />
-    {/* Top-left white branch */}
     <rect x="260" y="210" width="20" height="120" rx="10" transform="rotate(-15 270 270)" fill="#fff" />
     <circle cx="210" cy="180" r="60" fill="#fff" />
-    {/* Top-right red branch */}
     <rect x="350" y="210" width="20" height="120" rx="10" transform="rotate(15 360 270)" fill="#F90000" />
     <circle cx="410" cy="180" r="60" fill="#F90000" />
-    {/* Right white branch */}
     <rect x="420" y="320" width="20" height="120" rx="10" transform="rotate(30 430 380)" fill="#fff" />
     <circle cx="480" cy="320" r="45" fill="#fff" />
   </svg>
@@ -704,7 +602,7 @@ const CatboostIcon = ({ className }) => (
 
 // mlflow
 
-const MlflowIcon = ({ className }) => (
+const MlflowIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="128"
@@ -726,7 +624,7 @@ const MlflowIcon = ({ className }) => (
 
 // tensorflow
 
-const TensorflowIcon = ({ className }) => (
+const TensorflowIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -749,7 +647,7 @@ const TensorflowIcon = ({ className }) => (
 
 // keras
 
-const KerasIcon = ({ className }) => (
+const KerasIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -769,7 +667,7 @@ const KerasIcon = ({ className }) => (
 
 // pytorch
 
-const PytorchIcon = ({ className }) => (
+const PytorchIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -795,7 +693,7 @@ const PytorchIcon = ({ className }) => (
 
 // fastai
 
-const FastapiIcon = ({ className }) => (
+const FastapiIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -814,9 +712,9 @@ const FastapiIcon = ({ className }) => (
 
 // jax
 
-const JaxIcon = ({ className }) => {
-  const jaxBlue = "#003E94"; // approximated from the image
-  const jaxGreen = "#8CD447"; // approximated from the image
+const JaxIcon: React.FC<IconProps> = ({ className }) => {
+  const jaxBlue = "#003E94"; 
+  const jaxGreen = "#8CD447"; 
 
   return (
     <svg
@@ -827,7 +725,6 @@ const JaxIcon = ({ className }) => {
       aria-label="JAX"
     >
       <title>JAX</title>
-      {/* "jax" Text */}
       <text
         x="80"
         y="150"
@@ -839,7 +736,6 @@ const JaxIcon = ({ className }) => {
         jax
       </text>
 
-      {/* Connectors and Circles (adjust values to match the image) */}
       <circle cx="40" cy="50" r="20" fill={jaxGreen} />
       <rect x="50" y="45" width="60" height="10" fill={jaxGreen} transform="rotate(15, 80, 50)" />
 
@@ -850,11 +746,11 @@ const JaxIcon = ({ className }) => {
       <rect x="200" y="25" width="60" height="10" fill={jaxGreen} transform="rotate(-10, 230, 30)" />
     </svg>
   );
-};
+}
 
 // dask
 
-const DaskIcon = ({ className }) => {
+const DaskIcon: React.FC<IconProps> = ({ className }) => {
   const daskYellow = "#FFD166";
   const daskPurple = "#794BC4";
   const daskTeal = "#2397C1";
@@ -890,13 +786,13 @@ const DaskIcon = ({ className }) => {
       </g>
     </svg>
   );
-};
+}
 
 // web development start here
 
 // react
 
-const ReactIcon = ({ className }) => {
+const ReactIcon: React.FC<IconProps> = ({ className }) => {
   const reactBlue = "#61DAFB";
 
   return (
@@ -914,13 +810,13 @@ const ReactIcon = ({ className }) => {
       </g>
     </svg>
   );
-};
+}
 
 
 
 // next js
 
-const NextjsIcon = ({ className }) => (
+const NextjsIcon: React.FC<IconProps> = ({ className }) => ( 
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -968,7 +864,7 @@ const NextjsIcon = ({ className }) => (
 
 // plotly
 
-const PlotlyIcon = ({ className }) => (
+const PlotlyIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -994,7 +890,7 @@ const PlotlyIcon = ({ className }) => (
 
 // tensor flow serving
 
-const TfServingIcon = ({ className }) => (
+const TfServingIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -1014,32 +910,10 @@ const TfServingIcon = ({ className }) => (
   </svg>
 );
 
-// torch serve
-
-const TorchServeIcon = ({ className, color = "#007bff" }) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="128"
-      height="128"
-      viewBox="0 0 48 48"
-      className={className}
-      role="img"
-      aria-label="TorchServe"
-    >
-      <title>TorchServe</title>
-      <circle cx="24" cy="24" r="21.5" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
-      <path fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M14.814 13.158h7.739m-3.869 11.484V13.158" />
-      <circle cx="24" cy="24" r="17.921" fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" />
-      <path fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M25.785 26.918a2.84 2.84 0 0 1 2.635-1.754h1.67c1.213 0 2.085.332 2.78 1.223m-7.063 8.716c.695.891 1.567 1.223 2.78 1.223h1.68c1.562 0 2.828-1.247 2.828-2.784v-.013c0-1.537-1.266-2.784-2.829-2.784h-1.852a2.84 2.84 0 0 1-2.377-1.272" />
-      <path fill="none" stroke={color} strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="m34.001 4.983l-8.344 13.586l6.142-1.522l-7.924 10.108l4.931-.566L13.41 42.715l7.839-12.276l-5.046.726l6.48-9.625l-4.793.856z" />
-    </svg>
-  );
-};
 
 // ONNX
 
-const OnnxIcon = ({ className }) => (
+const OnnxIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="128"
@@ -1059,7 +933,7 @@ const OnnxIcon = ({ className }) => (
 
 // gradio
 
-const GradioIcon = ({ className }) => (
+const GradioIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="128"
@@ -1093,7 +967,7 @@ const GradioIcon = ({ className }) => (
 
 // streamlit 
 
-const StreamlitIcon = ({ className }) => (
+const StreamlitIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -1119,8 +993,8 @@ const StreamlitIcon = ({ className }) => (
 
 // wand
 
-const WandbIcon= ({ className }) => {
-  const dotColor = "#FFC107"; // Approximated gold/yellow color
+const WandbIcon: React.FC<IconProps> = ({ className }) => {
+  const dotColor = "#FFC107"; 
 
   return (
     <svg
@@ -1132,7 +1006,6 @@ const WandbIcon= ({ className }) => {
     >
       <title>Weights & Biases</title>
 
-      {/* Dots of varying sizes and positions - Adjusted to fit pattern */}
       <circle cx="20" cy="20" r="8" fill={dotColor} />
       <circle cx="50" cy="25" r="6" fill={dotColor} />
       <circle cx="80" cy="15" r="7" fill={dotColor} />
@@ -1147,37 +1020,12 @@ const WandbIcon= ({ className }) => {
 
     </svg>
   );
-};
+}
 
-
-// dvc
-
-const DvcIcon = ({ className }) => {
-  const dvdBlue = "#13adc7";
-  const dvdPurple = "#945dd6";
-  const dvdOrange = "#f46737";
-
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="128"
-      height="128"
-      viewBox="0 0 32 32"
-      className={className}
-      role="img"
-      aria-label="DVD"
-    >
-      <title>DVD</title>
-      <path fill={dvdBlue} d="M2 20.4V8.452a.268.268 0 0 1 .238-.3a.339.339 0 0 1 .078 0h4.676a6.64 6.64 0 0 1 4.751 1.877a6.032 6.032 0 0 1 .1 8.848l-.1.091a6.69 6.69 0 0 1-4.751 1.879H2.319a.3.3 0 0 1-.237-.076c0-.151-.082-.226-.082-.371Zm3.009-2.328h1.825a3.563 3.563 0 0 0 2.613-1.052a3.466 3.466 0 0 0 1.026-2.629a3.546 3.546 0 0 0-3.507-3.6H5.012Z" />
-      <path fill={dvdPurple} d="M15.627 23.775L9.685 11.607c-.08-.15-.08-.225 0-.3a.419.419 0 0 1 .316-.15h2.534c.159 0 .238.075.318.226l3.167 6.609h.08l3.167-6.609c.08-.151.158-.226.317-.226h2.534a.419.419 0 0 1 .316.15a.219.219 0 0 1 0 .3L16.5 23.775c-.079.15-.158.225-.317.225h-.163c-.237-.075-.393-.15-.393-.225Z" />
-      <path fill={dvdOrange} d="M20.376 19.043a6.019 6.019 0 0 1-1.98-4.582a6.016 6.016 0 0 1 1.98-4.582A6.7 6.7 0 0 1 25.207 8A6.736 6.736 0 0 1 29.8 9.654c.158.151.158.3 0 .526l-1.506 1.427a.307.307 0 0 1-.415.056a.263.263 0 0 1-.059-.056a3.848 3.848 0 0 0-2.534-.9a3.632 3.632 0 0 0-2.693 1.126a3.58 3.58 0 0 0-1.027 2.629a3.485 3.485 0 0 0 1.109 2.554a3.46 3.46 0 0 0 2.692 1.052a3.857 3.857 0 0 0 2.535-.9a.308.308 0 0 1 .417-.055a.275.275 0 0 1 .058.055l1.505 1.5a.274.274 0 0 1 .058.4a.3.3 0 0 1-.058.055a6.328 6.328 0 0 1-4.594 1.727a6.515 6.515 0 0 1-4.912-1.807Z" />
-    </svg>
-  );
-};
 
 // airflow
 
-const AirflowIcon = ({ className }) => {
+const AirflowIcon: React.FC<IconProps> = ({ className }) => {
   const airflowBlue = "#017CEE";
   const airflowGreen = "#00AD46";
   const airflowLightGreen = "#04D659";
@@ -1210,13 +1058,12 @@ const AirflowIcon = ({ className }) => {
       <circle cx="128.017" cy="127.983" r="5.479" fill={airflowGrey} />
     </svg>
   );
-};
-
+}
 
 // prefect
 
-const PrefectIcon = ({ className }) => {
-  const prefectColor = "#17202A"; // Prefect's dark blue color
+const PrefectIcon: React.FC<IconProps> = ({ className }) =>  {
+  const prefectColor = "#17202A"; 
 
   return (
     <svg
@@ -1232,11 +1079,11 @@ const PrefectIcon = ({ className }) => {
       <path fill={prefectColor} d="M4.29 4L12 8v8l7.71-4V4L12 0L4.29 4zM12 16l-7.71-4v8L12 24v-8z" />
     </svg>
   );
-};
+}
 
 // hugging face 
 
-const HuggingfaceIcon = ({ className }) => (
+const HuggingfaceIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 128 128"
@@ -1300,7 +1147,7 @@ const HuggingfaceIcon = ({ className }) => (
 
 // kaggle
 
-const KaggleIcon = ({ className }) => (
+const KaggleIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -1318,7 +1165,7 @@ const KaggleIcon = ({ className }) => (
 
 // tailwind
 
-const TailwindIcon = ({ className }) => (
+const TailwindIcon: React.FC<IconProps> = ({ className }) => (
   <svg viewBox="0 0 24 24" className={className} fill="#06B6D4" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 6C9.333 6 7.667 7.333 7 10c.667-1.333 1.5-1.833 2.5-1.5.583.187 1 .625 1.462 1.139C12 10.722 13.125 12 16 12c2.667 0 4.333-1.333 5-4-.667 1.333-1.5 1.833-2.5 1.5-.583-.187-1-.625-1.462-1.139C16 7.278 14.875 6 12 6z"/>
     <path d="M8 12c-2.667 0-4.333 1.333-5 4 .667-1.333 1.5-1.833 2.5-1.5.583.187 1 .625 1.462 1.139C8 16.722 9.125 18 12 18c2.667 0 4.333-1.333 5-4-.667 1.333-1.5 1.833-2.5 1.5-.583-.187-1-.625-1.462-1.139C12 13.278 10.875 12 8 12z"/>
@@ -1328,8 +1175,8 @@ const TailwindIcon = ({ className }) => (
 
 // node js
 
-const NodejsIcon = ({ className }) => {
-  const nodeJSColor = "#8CC84B";  // Node.js green color
+const NodejsIcon : React.FC<IconProps> = ({ className }) =>  {
+  const nodeJSColor = "#8CC84B"; 
 
   return (
     <svg
@@ -1347,10 +1194,9 @@ const NodejsIcon = ({ className }) => {
   );
 };
 
-
 // express js
 
-const ExpressIcon = ({ className }) => {
+const ExpressIcon: React.FC<IconProps> = ({ className }) =>  {
   const expressJSColor = "#bbbbbb";
 
   return (
@@ -1370,10 +1216,9 @@ const ExpressIcon = ({ className }) => {
   );
 };
 
-
 // graph ql
 
-const GraphqlIcon = ({ className }) => (
+const GraphqlIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -1397,7 +1242,7 @@ const GraphqlIcon = ({ className }) => (
 
 // mongodb
 
-const MongodbIcon = ({ className }) => (
+const MongodbIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 1024 1024"
     xmlns="http://www.w3.org/2000/svg"
@@ -1417,7 +1262,7 @@ const MongodbIcon = ({ className }) => (
 
 // postresql
 
-const PostgresqlIcon  = ({ className }) => {
+const PostgresqlIcon: React.FC<IconProps> = ({ className }) => {
   const postgresqlBlue = "#336791";
 
   return (
@@ -1438,7 +1283,7 @@ const PostgresqlIcon  = ({ className }) => {
 
 // vs code
 
-const VscodeIcon = ({ className }) => (
+const VscodeIcon: React.FC<IconProps> = ({ className }) => (
   <svg viewBox="0 0 24 24" className={className} fill="#007ACC" xmlns="http://www.w3.org/2000/svg">
     <path d="M23.15 2.587L18.21.21a1.494 1.494 0 00-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 00-1.276.057L.327 7.261A1 1 0 00.326 8.74L3.899 12 .326 15.26a1 1 0 00.001 1.479L1.65 17.94a.999.999 0 001.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 001.704.29l4.942-2.377A1.5 1.5 0 0024 20.06V3.939a1.5 1.5 0 00-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/>
   </svg>
@@ -1446,7 +1291,7 @@ const VscodeIcon = ({ className }) => (
 
 // firebase 
 
-const FirebaseIcon = ({ className }) => (
+const FirebaseIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -1480,10 +1325,9 @@ const FirebaseIcon = ({ className }) => (
   </svg>
 );
 
-
 // supabase
 
-const SupabaseIcon = ({ className }) => (
+const SupabaseIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -1536,69 +1380,12 @@ const SupabaseIcon = ({ className }) => (
   </svg>
 );
 
-// zod
-
-const ZodIcon = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="128"
-    height="128"
-    viewBox="0 0 256 203"
-    className={className}
-    role="img"
-    aria-label="Zod"
-  >
-    <title>Zod</title>
-    <defs>
-      <filter
-        id="zod-logosZod0"
-        width="105.2%"
-        height="106.5%"
-        x="-2.2%"
-        y="-2.8%"
-        filterUnits="objectBoundingBox"
-      >
-        <feOffset dx="1" dy="1" in="SourceAlpha" result="shadowOffsetOuter1" />
-        <feGaussianBlur
-          in="shadowOffsetOuter1"
-          result="shadowBlurOuter1"
-          stdDeviation="2"
-        />
-        <feColorMatrix
-          in="shadowBlurOuter1"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.36 0"
-        />
-      </filter>
-      <path
-        id="zod-logosZod1"
-        fill="#000"
-        d="M200.42 0H53.63L0 53.355l121.76 146.624l9.714-10.9L252 53.857L200.42 0Zm-5.362 12.562l39.84 41.6l-112.8 126.558L17 54.162l41.815-41.6h136.243Z"
-      />
-    </defs>
-    <g transform="translate(2 1.51)">
-      <path
-        fill="#18253F"
-        d="M58.816 12.522h136.278l39.933 41.691l-112.989 126.553L16.957 54.213z"
-      />
-      <path
-        fill="#274D82"
-        d="M149.427 150.875H96.013l-24.124-29.534l68.364-.002l.002-4.19h39.078z"
-      />
-      <path
-        fill="#274D82"
-        d="M223.56 42.323L76.178 127.414l-19.226-24.052l114.099-65.877l-2.096-3.631l30.391-17.546zm-78.964-29.759L33.93 76.457L16.719 54.972l74.095-42.779z"
-      />
-      <use filter="url(#zod-logosZod0)" href="#zod-logosZod1" />
-      <use fill="#3068B7" href="#zod-logosZod1" />
-    </g>
-  </svg>
-);
 
 // tool platforms start here
 
 // git
 
-const GitIcon = ({ className }) => (
+const GitIcon: React.FC<IconProps> = ({ className }) => (
   <svg viewBox="0 0 24 24" className={className} fill="#F05032" xmlns="http://www.w3.org/2000/svg">
     <path d="M23.546 10.93L13.068.452a1.55 1.55 0 00-2.195 0L8.708 2.617l2.76 2.76a1.838 1.838 0 012.327 2.348l2.658 2.66a1.838 1.838 0 011.9 3.028 1.837 1.837 0 01-2.6 0 1.846 1.846 0 01-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348a1.848 1.848 0 010 2.6 1.844 1.844 0 01-2.609 0 1.834 1.834 0 010-2.598c.182-.18.387-.316.605-.406V8.835a1.834 1.834 0 01-.996-2.41L7.636 5.727L.45 12.913a1.55 1.55 0 000 2.194L10.93 23.546a1.55 1.55 0 002.194 0l10.422-10.43a1.55 1.55 0 000-2.186z"/>
   </svg>
@@ -1607,7 +1394,7 @@ const GitIcon = ({ className }) => (
 
 // docker
 
-const DockerIcon = ({ className }) => (
+const DockerIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -1643,7 +1430,7 @@ const DockerIcon = ({ className }) => (
 
 // jupyter
 
-const JupyterIcon = ({ className }) => (
+const JupyterIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -1673,9 +1460,9 @@ const JupyterIcon = ({ className }) => (
 
 // google collab
 
-const ColabIcon = ({ className }) => {
-  const collabYellow = "#f9ab00"; // Primary yellow color
-  const collabOrange = "#f17f00"; // Secondary orange color
+const ColabIcon: React.FC<IconProps> = ({ className }) => {
+  const collabYellow = "#f9ab00"; 
+  const collabOrange = "#f17f00"; 
 
   return (
     <svg
@@ -1712,7 +1499,7 @@ const ColabIcon = ({ className }) => {
 
 // postman
 
-const PostmanIcon = ({ className }) => {
+const PostmanIcon: React.FC<IconProps> = ({ className }) => {
   const postmanOrange = "#FF6C37";
   const offWhite = "#EEE";
 
@@ -1838,33 +1625,9 @@ const PostmanIcon = ({ className }) => {
   );
 };
 
-// thunderclient
-
-const ThunderClientIcon = ({ className }) => {
-  const thunderBlue = "#2563eb"; // Replace with the Thunder Client's specific blue if available
-
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="128"
-      height="128"
-      viewBox="0 0 24 24"
-      className={className}
-      role="img"
-      aria-label="Thunder Client"
-    >
-      <title>Thunder Client</title>
-      <path
-        fill={thunderBlue}
-        d="M11.1 5h-.064C8.6 5.033 6.7 6.935 6.7 9.2c0 .262.025.518.073.765l.184.956l-.95.21C4.832 11.391 4 12.391 4 13.533c0 .947.566 1.79 1.432 2.205l.902.431l-.864 1.804l-.902-.431C3.063 16.822 2 15.309 2 13.533c0-1.83 1.125-3.375 2.706-4.07A6.083 6.083 0 0 1 4.7 9.2c0-3.43 2.851-6.152 6.309-6.2h.091c.546 0 1.078.066 1.586.192c2.147.53 3.88 2.12 4.533 4.187a5.588 5.588 0 0 1 2.654 1.074c1.285.969 2.127 2.49 2.127 4.214c0 2.21-1.382 4.082-3.313 4.894l-.922.388l-.775-1.843l.922-.388C19.16 15.193 20 14.01 20 12.667c0-1.051-.511-1.998-1.331-2.616a3.612 3.612 0 0 0-2.228-.717l-.854.013l-.147-.842c-.282-1.62-1.55-2.956-3.234-3.371A4.607 4.607 0 0 0 11.1 5Zm2.777 5.677L11.817 14h4.018l-4.023 6.38l-1.691-1.067L12.21 16H8.226l3.95-6.377l1.7 1.054Z"
-      />
-    </svg>
-  );
-};
-
 // vercel
 
-const VercelIcon = ({ className }) => (
+const VercelIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -1883,7 +1646,7 @@ const VercelIcon = ({ className }) => (
 
 // netlify
 
-const NetlifyIcon = ({ className }) => (
+const NetlifyIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -1903,29 +1666,9 @@ const NetlifyIcon = ({ className }) => (
   </svg>
 );
 
-// railway
-
-const RailwayIcon = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="128"
-    height="128"
-    viewBox="0 0 24 24"
-    className={className}
-    role="img"
-    aria-label="Railway"
-  >
-    <title>Railway</title>
-    <path
-      fill="currentColor"
-      d="M.113 10.27A13.026 13.026 0 0 0 0 11.48h18.23a2.274 2.274 0 0 0-.235-.347c-3.117-4.027-4.793-3.677-7.19-3.78c-.8-.034-1.34-.048-4.524-.048c-1.704 0-3.555.005-5.358.01c-.234.63-.459 1.24-.567 1.737h9.342v1.216H.113v.002zm18.26 2.426H.009c.02.326.05.645.094.961h16.955c.754 0 1.179-.429 1.315-.96zm-17.318 4.28s2.81 6.902 10.93 7.024c4.855 0 9.027-2.883 10.92-7.024H1.056zM11.988 0C7.5 0 3.593 2.466 1.531 6.108l4.75-.005v-.002c3.71 0 3.849.016 4.573.047l.448.016c1.563.052 3.485.22 4.996 1.364c.82.621 2.007 1.99 2.712 2.965c.654.902.842 1.94.396 2.934c-.408.914-1.289 1.458-2.353 1.458H.391s.099.42.249.886h22.748A12.026 12.026 0 0 0 24 12.005C24 5.377 18.621 0 11.988 0z"
-    />
-  </svg>
-);
-
 // aws
 
-const AwsIcon = ({ className }) => (
+const AwsIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -1934,12 +1677,10 @@ const AwsIcon = ({ className }) => (
     aria-label="AWS"
   >
     <title>AWS</title>
-    {/* "AWS" logotype in dark blue */}
     <path
       fill="#252f3e"
       d="M36.379 53.64c0 1.56.168 2.825.465 3.75.336.926.758 1.938 1.347 3.032.207.336.293.672.293.969 0 .418-.254.84-.8 1.261l-2.653 1.77c-.379.25-.758.379-1.093.379-.422 0-.844-.211-1.266-.59a13.28 13.28 0 0 1-1.516-1.98 34.153 34.153 0 0 1-1.304-2.485c-3.282 3.875-7.41 5.813-12.38 5.813-3.535 0-6.355-1.012-8.421-3.032-2.063-2.023-3.114-4.718-3.114-8.086 0-3.578 1.262-6.484 3.833-8.671 2.566-2.192 5.976-3.286 10.316-3.286 1.43 0 2.902.125 4.46.336 1.56.211 3.161.547 4.845.926v-3.074c0-3.2-.676-5.43-1.98-6.734C26.061 32.633 23.788 32 20.546 32c-1.473 0-2.988.168-4.547.547a33.416 33.416 0 0 0-4.547 1.433c-.676.293-1.18.461-1.473.547-.296.082-.507.125-.675.125-.59 0-.883-.422-.883-1.304v-2.063c0-.676.082-1.18.293-1.476.21-.293.59-.586 1.18-.883 1.472-.758 3.242-1.39 5.304-1.895 2.063-.547 4.254-.8 6.57-.8 5.008 0 8.672 1.136 11.032 3.41 2.316 2.273 3.492 5.726 3.492 10.359v13.64Zm-17.094 6.403c1.387 0 2.82-.254 4.336-.758 1.516-.508 2.863-1.433 4-2.695.672-.8 1.18-1.684 1.43-2.695.254-1.012.422-2.23.422-3.665v-1.765a34.401 34.401 0 0 0-3.871-.719 31.816 31.816 0 0 0-3.961-.25c-2.82 0-4.883.547-6.274 1.684-1.387 1.136-2.062 2.734-2.062 4.84 0 1.98.504 3.453 1.558 4.464 1.012 1.051 2.485 1.559 4.422 1.559Zm33.809 4.547c-.758 0-1.262-.125-1.598-.422-.34-.254-.633-.84-.887-1.64L40.715 29.98c-.25-.843-.38-1.39-.38-1.687 0-.672.337-1.05 1.013-1.05h4.125c.8 0 1.347.124 1.644.421.336.25.59.84.84 1.64l7.074 27.876 6.57-27.875c.208-.84.462-1.39.797-1.64.34-.255.93-.423 1.688-.423h3.367c.8 0 1.348.125 1.684.422.336.25.633.84.8 1.64l6.653 28.212 7.285-28.211c.25-.84.547-1.39.84-1.64.336-.255.887-.423 1.644-.423h3.914c.676 0 1.055.336 1.055 1.051 0 .21-.043.422-.086.676-.043.254-.125.59-.293 1.05L80.801 62.57c-.254.84-.547 1.387-.887 1.64-.336.255-.883.423-1.598.423h-3.62c-.801 0-1.348-.13-1.684-.422-.34-.297-.633-.844-.801-1.684l-6.527-27.16-6.485 27.117c-.21.844-.46 1.391-.8 1.684-.337.297-.926.422-1.684.422Zm54.105 1.137c-2.187 0-4.379-.254-6.484-.758-2.106-.504-3.746-1.055-4.84-1.684-.676-.379-1.137-.8-1.305-1.18a2.919 2.919 0 0 1-.254-1.18v-2.148c0-.882.336-1.304.97-1.304.25 0 .503.043.757.129.25.082.629.25 1.05.418a23.102 23.102 0 0 0 4.634 1.476c1.683.336 3.324.504 5.011.504 2.653 0 4.715-.465 6.145-1.39 1.433-.926 2.191-2.274 2.191-4 0-1.18-.379-2.145-1.136-2.946-.758-.8-2.192-1.516-4.254-2.191l-6.106-1.895c-3.074-.969-5.348-2.398-6.734-4.293-1.39-1.855-2.106-3.918-2.106-6.105 0-1.77.38-3.328 1.137-4.676a10.829 10.829 0 0 1 3.031-3.453c1.262-.965 2.696-1.684 4.38-2.188 1.683-.504 3.452-.715 5.304-.715.926 0 1.894.043 2.82.168.969.125 1.852.293 2.738.461.84.211 1.641.422 2.399.676.758.254 1.348.504 1.77.758.59.336 1.011.672 1.261 1.05.254.34.379.802.379 1.391v1.98c0 .884-.336 1.348-.969 1.348-.336 0-.883-.171-1.597-.507-2.403-1.094-5.098-1.641-8.086-1.641-2.399 0-4.293.379-5.598 1.18-1.309.797-1.98 2.02-1.98 3.746 0 1.18.421 2.191 1.261 2.988.844.8 2.403 1.602 4.633 2.316l5.98 1.895c3.032.969 5.22 2.316 6.524 4.043 1.305 1.727 1.938 3.707 1.938 5.895 0 1.812-.38 3.453-1.094 4.882-.758 1.434-1.77 2.696-3.074 3.707-1.305 1.051-2.864 1.809-4.672 2.36-1.895.586-3.875.883-6.024.883Zm0 0"
     />
-    {/* "smile" arrow in AWS orange */}
     <path
       fill="#f90"
       d="M118 73.348c-4.432.063-9.664 1.052-13.621 3.832-1.223.883-1.012 2.062.336 1.894 4.508-.547 14.44-1.726 16.21.547 1.77 2.23-1.976 11.62-3.663 15.79-.504 1.26.59 1.769 1.726.8 7.41-6.231 9.348-19.242 7.832-21.137-.757-.925-4.388-1.79-8.82-1.726zM1.63 75.859c-.927.116-1.347 1.236-.368 2.121 16.508 14.902 38.359 23.872 62.613 23.872 17.305 0 37.43-5.43 51.281-15.66 2.273-1.688.297-4.254-2.02-3.204-15.534 6.57-32.421 9.77-47.788 9.77-22.778 0-44.8-6.273-62.653-16.633-.39-.231-.755-.304-1.064-.266z"
@@ -1949,7 +1690,7 @@ const AwsIcon = ({ className }) => (
 
 // gcp
 
-const GcpIcon = ({ className }) => {
+const GcpIcon: React.FC<IconProps> = ({ className }) => {
   const gcpBlue = "#4285F4";
   const gcpRed = "#EA4335";
   const gcpYellow = "#FBBC05";
@@ -1992,7 +1733,7 @@ const GcpIcon = ({ className }) => {
 
 // azure
 
-const AzureIcon = ({ className }) => (
+const AzureIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -2042,7 +1783,7 @@ const AzureIcon = ({ className }) => (
 
 // heroku
 
-const HerokuIcon = ({ className }) => (
+const HerokuIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -2060,7 +1801,7 @@ const HerokuIcon = ({ className }) => (
 
 // figma
 
-const FigmaIcon = ({ className }) => (
+const FigmaIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
     xmlns="http://www.w3.org/2000/svg"
@@ -2094,7 +1835,7 @@ const FigmaIcon = ({ className }) => (
 
 // notion 
 
-const NotionIcon = ({ className }) => (
+const NotionIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="128"
@@ -2111,58 +1852,5 @@ const NotionIcon = ({ className }) => (
     />
   </svg>
 );
-
-
-// obsidian
-
-const ObsidianIcon = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="128"
-    height="128"
-    viewBox="0 0 24 24"
-    className={className}
-    role="img"
-    aria-label="Obsidian"
-  >
-    <title>Obsidian</title>
-    <path
-      fill="currentColor"
-      d="M19.355 18.538a68.967 68.959 0 0 0 1.858-2.954a.81.81 0 0 0-.062-.9c-.516-.685-1.504-2.075-2.042-3.362c-.553-1.321-.636-3.375-.64-4.377a1.707 1.707 0 0 0-.358-1.05l-3.198-4.064a3.744 3.744 0 0 1-.076.543c-.106.503-.307 1.004-.536 1.5c-.134.29-.29.6-.446.914l-.31.626c-.516 1.068-.997 2.227-1.132 3.59c-.124 1.26.046 2.73.815 4.481c.128.011.257.025.386.044a6.363 6.363 0 0 1 3.326 1.505c.916.79 1.744 1.922 2.415 3.5zM8.199 22.569c.073.012.146.02.22.02c.78.024 2.095.092 3.16.29c.87.16 2.593.64 4.01 1.055c1.083.316 2.198-.548 2.355-1.664c.114-.814.33-1.735.725-2.58l-.01.005c-.67-1.87-1.522-3.078-2.416-3.849a5.295 5.295 0 0 0-2.778-1.257c-1.54-.216-2.952.19-3.84.45c.532 2.218.368 4.829-1.425 7.531zM5.533 9.938c-.023.1-.056.197-.098.29L2.82 16.059a1.602 1.602 0 0 0 .313 1.772l4.116 4.24c2.103-3.101 1.796-6.02.836-8.3c-.728-1.73-1.832-3.081-2.55-3.831zM9.32 14.01c.615-.183 1.606-.465 2.745-.534c-.683-1.725-.848-3.233-.716-4.577c.154-1.552.7-2.847 1.235-3.95c.113-.235.223-.454.328-.664c.149-.297.288-.577.419-.86c.217-.47.379-.885.46-1.27c.08-.38.08-.72-.014-1.043c-.095-.325-.297-.675-.68-1.06a1.6 1.6 0 0 0-1.475.36l-4.95 4.452a1.602 1.602 0 0 0-.513.952l-.427 2.83c.672.59 2.328 2.316 3.335 4.711c.09.21.175.43.253.653z"
-    />
-  </svg>
-);
-
-// drawio
-
-const DrawioIcon = ({ className }) => {
-  const drawioOrange = "#f08705";
-  const drawioDarkOrange = "#df6c0c";
-  const white = "#fff";
-
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="128"
-      height="128"
-      viewBox="0 0 32 32"
-      className={className}
-      role="img"
-      aria-label="draw.io"
-    >
-      <title>draw.io</title>
-      <rect width="28" height="28" x="2" y="2" fill={drawioOrange} rx="1.12" />
-      <path
-        fill={drawioDarkOrange}
-        fillRule="evenodd"
-        d="m16.861 9.168l3.02-3.187L30 16.094V28.88A1.119 1.119 0 0 1 28.88 30H11.316l-5.385-5.407Z"
-      />
-      <path
-        fill={white}
-        d="M25.24 17.96h-3.294l-3.071-5.32h.2a1.119 1.119 0 0 0 1.12-1.12V6.76a1.119 1.119 0 0 0-1.12-1.12H12.92a1.119 1.119 0 0 0-1.12 1.12v4.76a1.119 1.119 0 0 0 1.12 1.12h.205l-3.071 5.32H6.76a1.119 1.119 0 0 0-1.12 1.12v4.76a1.119 1.119 0 0 0 1.12 1.12h6.16a1.119 1.119 0 0 0 1.12-1.12v-4.76a1.119 1.119 0 0 0-1.12-1.12h-.927l3.072-5.32h1.87l3.071 5.32h-.926a1.119 1.119 0 0 0-1.12 1.12v4.76a1.119 1.119 0 0 0 1.12 1.12h6.16a1.119 1.119 0 0 0 1.12-1.12v-4.76a1.119 1.119 0 0 0-1.12-1.12Z"
-      />
-    </svg>
-  );
-};
 
 export default Skills;

@@ -1,10 +1,8 @@
 'use client';
-
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
-import { ArrowRight, Lightbulb, Shield, Globe } from 'lucide-react';
+import { useRef, useState, useEffect, MouseEvent } from 'react';
 
-function Particles({ count = 40 }) {
+function Particles({ count = 40 }: { count?: number }) {
   const particles = Array.from({ length: count }).map((_, i) => ({
     id: i,
     x: Math.random() * 100,
@@ -41,13 +39,20 @@ function Particles({ count = 40 }) {
   );
 }
 
-function TimelineCard({ title, content, position, index }) {
-  const cardRef = useRef(null);
+type TimelineCardProps = {
+  title: string;
+  content: string;
+  position: 'left' | 'right' | 'full';
+  index: number;
+};
+
+function TimelineCard({ title, content, position, index }: TimelineCardProps) {
+  const cardRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(cardRef, { once: true, margin: "-100px" });
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     setMousePosition({
@@ -73,7 +78,7 @@ function TimelineCard({ title, content, position, index }) {
       transition: { 
         duration: 0.1, 
         delay: index * 0.1,
-        ease: "easeOut" 
+        ease: "easeOut" as const 
       }
     }
   };
@@ -118,7 +123,7 @@ function TimelineCard({ title, content, position, index }) {
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
         onMouseMove={handleMouseMove}
-        tabIndex="0"
+        tabIndex={0}
       >
         <div className="absolute -inset-2 bg-gray-500/10 filter blur-3xl" aria-hidden="true" />
         <div className="relative z-10 space-y-4">
@@ -170,13 +175,19 @@ function TimelineCard({ title, content, position, index }) {
   );
 }
 
-function PhilosophyCard({ number, title, content }) {
-  const cardRef = useRef(null);
+type PhilosophyCardProps = {
+  number: string;
+  title: string;
+  content: string;
+};
+
+function PhilosophyCard({ number, title, content }: PhilosophyCardProps) {
+  const cardRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(cardRef, { once: true });
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     setMousePosition({
@@ -209,7 +220,7 @@ function PhilosophyCard({ number, title, content }) {
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       onMouseMove={handleMouseMove}
-      tabIndex="0"
+      tabIndex={0}
       role="article"
     >
       <div className="absolute -inset-2 bg-gray-500/10 filter blur-3xl" aria-hidden="true" />
@@ -269,14 +280,13 @@ function PhilosophyCard({ number, title, content }) {
 
 export default function MyEdge() {
   const { scrollYProgress } = useScroll();
-  const timelineRef = useRef(null);
-  const sectionRef = useRef(null);
+  const timelineRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
   const [windowWidth, setWindowWidth] = useState(0);
-  const [blips, setBlips] = useState([]);
   const drawProgress = useTransform(scrollYProgress, [0, 0.8], [0, 1]);
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (!sectionRef.current) return;
       if (e.key === 'ArrowDown') {
         e.preventDefault();
@@ -303,7 +313,7 @@ export default function MyEdge() {
       ref={sectionRef}
       className="py-20 relative overflow-hidden bg-black"
       aria-label="My professional edge and specialties"
-      tabIndex="0"
+      tabIndex={0}
     >
       <Particles count={50} />
       

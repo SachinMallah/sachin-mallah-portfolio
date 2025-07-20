@@ -1,5 +1,41 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
+
+const NEURAL_NETWORK_CONFIG = {
+  network: {
+    layers: [7, 9, 7, 5],
+    widthSpread: 0.65,
+    heightSpread: 0.6,
+  },
+  nodes: {
+    size: 3.5,
+    glow: 100,
+    color: 'rgb(255, 255, 255)',
+    highlight: 'rgb(255, 255, 255)',
+  },
+  connections: {
+    thickness: 1,
+    activeThickness: 1.5,
+    color: 'rgb(255, 255, 255)',
+    activeColor: 'rgb(255, 255, 255)',
+  },
+  animation: {
+    driftRadius: 150,
+    speed: 0.009,
+    speedVariation: 0.3,
+  },
+  content: {
+    verticalOffset: '-5%',
+    maxWidth: '4xl',
+  }
+};
+
+const TITLE_TEXTS = [
+  'Machine learning engineer', 
+  'Full Stack Web Developer', 
+  'Business Enthusiast', 
+  'INNOVATOR'
+];
 
 type NodeType = {
   baseX: number;
@@ -22,56 +58,18 @@ type ConnectionType = {
 };
 
 export default function Hero() {
-  // ======================
-  // CONFIGURATION SECTION
-  // ======================
-  const titles = ['Machine learning engineer', 'Full Stack Web Developer', 'Business Enthusiast', 'INNOVATOR'];
-  
-  // Neural Network Configuration (Edit these values to customize)
-  const config = {
-    network: {
-      layers: [7, 9, 7, 5],        // Number of nodes in each layer [left to right]
-      widthSpread: 0.65,           // Horizontal spread (0-1)
-      heightSpread: 0.6,           // Vertical spread (0-1)
-    },
-    nodes: {
-      size: 3.5,                             // Node diameter in pixels
-      glow: 100,                             // Glow effect intensity (0 to disable)
-      color: 'rgb(255, 255, 255)',         // Node color (RGBA format)
-      highlight: 'rgb(255, 255, 255)',     // Active node color
-    },
-    connections: {
-      thickness: 1,                        // Line thickness
-      activeThickness: 1.5,                  // Active line thickness
-      color: 'rgb(255, 255, 255)',         // Line color
-      activeColor: 'rgb(255, 255, 255)',   // Active line color
-    },
-    animation: {
-      driftRadius: 150,             // Movement range from base position
-      speed: 0.009,               // Base animation speed (0.0001-0.01)
-      speedVariation: 0.3,         // Speed variation between nodes (0-1)
-    },
-    content: {
-      verticalOffset: '-5%',       // Vertical position (-20% to 20%)
-      maxWidth: '4xl',             // Text container width (Tailwind class)
-    }
-  };
-
-  // ======================
-  // STATE & REFERENCES
-  // ======================
   const [currentText, setCurrentText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const nodes = useRef<NodeType[][]>([]);
   const connections = useRef<ConnectionType[]>([]);
-  const animationFrameId = useRef<number>();
+  const animationFrameId = useRef<number | null>(null); 
   const pixelRatio = useRef(1);
 
-  // ======================
-  // CANVAS SETUP & ANIMATION
-  // ======================
+  const config = useMemo(() => NEURAL_NETWORK_CONFIG, []);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -143,7 +141,6 @@ export default function Hero() {
       if (!ctx) return;
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-      // Update node positions
       nodes.current.forEach(layer => layer.forEach(node => {
         node.driftX += config.animation.speed * node.driftSpeedX;
         node.driftY += config.animation.speed * node.driftSpeedY;
@@ -151,7 +148,6 @@ export default function Hero() {
         node.y = node.baseY + Math.sin(node.driftY) * config.animation.driftRadius;
       }));
 
-      // Draw connections
       connections.current.forEach(conn => {
         ctx.beginPath();
         ctx.moveTo(conn.from.x, conn.from.y);
@@ -161,7 +157,6 @@ export default function Hero() {
         ctx.stroke();
       });
 
-      // Draw nodes
       nodes.current.forEach(layer => layer.forEach(node => {
         ctx.beginPath();
         ctx.arc(node.x, node.y, config.nodes.size, 0, Math.PI * 2);
@@ -186,15 +181,14 @@ export default function Hero() {
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-      animationFrameId.current && cancelAnimationFrame(animationFrameId.current);
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
     };
-  }, []);
+  }, [config]); 
 
-  // ======================
-  // TEXT ANIMATION LOGIC
-  // ======================
   useEffect(() => {
-    const currentTitle = titles[currentIndex];
+    const currentTitle = TITLE_TEXTS[currentIndex];
     const typeSpeed = isDeleting ? 50 : 150;
     const pause = isDeleting ? 500 : 1000;
 
@@ -203,55 +197,51 @@ export default function Hero() {
       return () => clearTimeout(timeout);
     } else if (isDeleting && currentText === '') {
       setIsDeleting(false);
-      setCurrentIndex((prev) => (prev + 1) % titles.length);
+      setCurrentIndex((prev) => (prev + 1) % TITLE_TEXTS.length);
     } else {
       const timeout = setTimeout(() => {
         setCurrentText(prev => isDeleting ? prev.slice(0, -1) : currentTitle.slice(0, prev.length + 1));
       }, typeSpeed);
       return () => clearTimeout(timeout);
     }
-  }, [currentText, currentIndex, isDeleting, titles]);
+  }, [currentText, currentIndex, isDeleting]);
 
-  // ======================
-  // COMPONENT RENDER
-  // ======================
   return (
     <section className="relative h-screen bg-black flex items-center justify-center overflow-hidden">
       <canvas 
         ref={canvasRef}
         className="fixed inset-0 w-full h-full pointer-events-none"
-        // className="fixed inset-0 w-full h-full pointer-events-none opacity-100"
       />
 
-      {/* Centered Content Container */}
+      
       <div 
         className={`text-center max-${config.content.maxWidth} w-full mx-4 relative z-10`}
         style={{ transform: `translateY(${config.content.verticalOffset})` }}
       >
-        {/* Text Animation */}
+        
         <div className="mb-4 flex justify-center items-baseline">
-          <span className="text-xl text-gray-300 font-light mr-2">Hi, I'm</span>
+          <span className="text-xl text-gray-300 font-light mr-2">Hi, I&apos;m</span>
           <h2 className="text-2xl font-medium text-green-400">
             {currentText}
             <span className="cursor">|</span>
           </h2>
         </div>
 
-        {/* Main Heading */}
+        
         <h1 className="text-6xl md:text-7xl font-bold mb-6 text-white">
           SACHIN MALLAH
         </h1>
 
-        {/* Description */}
+        
         <div className="text-lg text-gray-300 mb-8 space-y-2 mx-auto max-w-2xl">
           <p>Always learning, being creative and playing around with</p>
           <p>AI models to build something cool!</p>
         </div>
 
-        {/* Action Buttons */}
+        
         <div className="flex justify-center gap-4 mb-8 flex-wrap">
           <a
-            href="/cv.pdf"
+            href="/CV/sachin-resume.pdf"
             download
             className="px-8 py-3 bg-white/90 text-black rounded-full font-medium border border-white hover:bg-gray-100 hover:border-gray-300 hover:text-black transition-all"
           >
@@ -265,7 +255,7 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* Social Links */}
+        
         <div className="flex justify-center gap-6 mt-8">
           {[
             ['https://www.instagram.com/sachinmallah_?igsh=enZ5em53M2Q3b3Yx', 'Instagram'],

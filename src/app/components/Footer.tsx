@@ -1,13 +1,36 @@
 'use client';
+import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin } from 'lucide-react';
+
+type SocialLinkProps = {
+  href: string;
+  label: string;
+  children: ReactNode;
+};
+
+function SocialLink({ href, children, label }: SocialLinkProps) {
+  return (
+    <motion.a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hover:text-white transition-colors"
+      whileHover={{ scale: 1.15 }}
+      whileTap={{ scale: 0.95 }}
+      aria-label={label}
+    >
+      {children}
+    </motion.a>
+  );
+}
 
 export default function Footer() {
   return (
     <footer className="relative bg-black border-t border-gray-500/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 relative z-10">
-          {/* Left Section */}
+          
           <motion.div 
             className="space-y-4"
             initial={{ opacity: 0, y: 20 }}
@@ -19,8 +42,7 @@ export default function Footer() {
               Building intelligent systems with purpose and precision.
             </p>
           </motion.div>
-
-          {/* Social Links with White Icons */}
+          
           <motion.div 
             className="flex flex-col space-y-4"
             initial={{ opacity: 0, y: 20 }}
@@ -62,7 +84,7 @@ export default function Footer() {
           </motion.div>
         </div>
 
-        {/* Copyright Section */}
+        
         <motion.div 
           className="mt-12 pt-8 border-t border-gray-500/30 text-center"
           initial={{ opacity: 0 }}
@@ -79,24 +101,8 @@ export default function Footer() {
         </motion.div>
       </div>
 
-      {/* Background Gradient */}
+      
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 to-black/80 z-0" />
     </footer>
-  );
-}
-
-function SocialLink({ href, children, label }) {
-  return (
-    <motion.a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="hover:text-white transition-colors"
-      whileHover={{ scale: 1.15 }}
-      whileTap={{ scale: 0.95 }}
-      aria-label={label}
-    >
-      {children}
-    </motion.a>
   );
 }

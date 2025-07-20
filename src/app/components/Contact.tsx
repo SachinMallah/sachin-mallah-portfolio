@@ -17,13 +17,13 @@ export default function Contact() {
           >
             <h2 className="text-5xl font-bold text-white mb-4">Get In Touch</h2>
             <p className="text-xl text-gray-300">
-              Let's collaborate on something extraordinary
+              Let&apos;s collaborate on something extraordinary
             </p>
           </motion.div>
         </AnimatePresence>
 
         <div className="flex flex-col md:flex-row md:items-stretch gap-10 md:gap-8">
-          {/* Contact Info */}
+          
           <motion.div
             className="md:w-1/2 flex flex-col justify-center"
             initial={{ opacity: 0 }}
@@ -31,9 +31,9 @@ export default function Contact() {
             transition={{ delay: 0.2 }}
           >
             <motion.p className="text-lg text-gray-300 leading-relaxed mb-8 md:mb-12">
-              I'm currently exploring new opportunities in AI/ML research and development.
+              I&apos;m currently exploring new opportunities in AI/ML research and development.
               Whether you have a question, opportunity, or just want to connect - my inbox
-              is always open. Let's create something remarkable together.
+              is always open. Let&apos;s create something remarkable together.
             </motion.p>
 
             <motion.div
@@ -89,7 +89,7 @@ export default function Contact() {
               ))}
             </motion.div>
 
-            {/* Response Time */}
+            
             <div className="mt-12 px-6 py-4 bg-gray-900 rounded-2xl border border-gray-700 max-w-md shadow-lg">
               <h3 className="text-white font-semibold text-lg mb-2">Typical Response Time</h3>
               <p className="text-gray-400">
@@ -98,14 +98,14 @@ export default function Contact() {
               </p>
             </div>
 
-            {/* Location */}
+            
             <div className="mt-8 flex items-center space-x-3 bg-gray-900 rounded-2xl border border-gray-700 px-6 py-4 max-w-md shadow-lg">
               <MapPin className="w-6 h-6 text-gray-300" />
               <span className="text-gray-100 font-medium">Mumbai, India</span>
             </div>
           </motion.div>
 
-          {/* Email Button Section - perfectly centered */}
+          
           <motion.div
             className="md:w-1/2 flex flex-col justify-center items-center"
             initial={{ opacity: 0, y: 20 }}
