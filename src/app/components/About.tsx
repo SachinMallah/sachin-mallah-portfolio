@@ -7,7 +7,7 @@ const textContent = {
   welcome: "Welcome! Thanks for taking the time to check out my website.",
   aboutMeCommand: "sachin@portfolio:~$ about_me",
   aboutMeLines: [
-    "• Hi, I'm Sachin Kumar Dinesh Chandra Mallah — a passionate AI/ML undergraduate (2nd year, Mumbai University) with a strong technical and mathematical background.",
+    "• Hi, I'm Sachin Kumar Dinesh Chandra Mallah — a passionate AI/ML undergraduate (3rd year, Mumbai University) with a strong technical and mathematical background.",
     "• I love solving real-world problems using artificial intelligence and modern web technologies. My experience spans data science, deep learning, and full stack web development.",
     "• Notable Project: Reddit Sentiment Analysis Dashboard Built a real-time sentiment analysis dashboard for any Reddit topic with interactive visualizations like sentiment distribution and word clouds. Developed using Python, PRAW, Streamlit, Plotly, VADER, and NLTK. This project enhanced my skills in NLP, real-time data extraction, data visualization, and deploying AI web apps.",
     "• Actively seeking internships, research opportunities, and collaborations that challenge me to grow as a technologist and problem-solver."

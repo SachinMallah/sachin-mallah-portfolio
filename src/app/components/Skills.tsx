@@ -167,7 +167,7 @@ const Skills = () => {
                   className="text-center mb-20 px-4"
                 >
                   <h2 className="text-5xl font-bold text-white mb-4">Technical Skills</h2>
-                  <p className="text-xl text-gray-300">Technologies I Work With</p>
+                  <p className="text-xl text-gray-300 mt-4">Technologies I Work With</p>
                 </motion.div>
               </AnimatePresence>
         

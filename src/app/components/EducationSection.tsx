@@ -22,7 +22,7 @@ const educationData: EducationItem[] = [
     title: "Honours Bachelor of Science – Computer Science Specialization in AI & ML",
     institution: "University of Mumbai",
     location: "Mumbai, Maharashtra",
-    year: "2023 – 2027 (Ongoing)",
+    year: "2023 – 2026 (Ongoing)",
     description: "Currently pursuing a degree focused on core computer science subjects with a specialization in Artificial Intelligence and Machine Learning.",
   },
   {
