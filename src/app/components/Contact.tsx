@@ -45,12 +45,13 @@ export default function Contact() {
               }}
             >
               {[
+                // here we can add this special envelope made for gmail option but to keep it simple just dont add this 
                 // {
                 //   icon: Envelope,
                 //   label: "Email",
                 //   value: "sachinmallah118@gmail.com",
                 //   href:
-                //     "mailto:sachinmallah118@gmail.com?subject=Contact%20from%20Website&body=Hi%2C%20I%20would%20like%20to%20connect%20with%20you.",
+                //     "mailto:yourmailheretowherecontact@gmail.com?subject=Contact%20from%20Website&body=Hi%2C%20I%20would%20like%20to%20connect%20with%20you.",
                 // },
                 {
                   icon: GithubLogo,

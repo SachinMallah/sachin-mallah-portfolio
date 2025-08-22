@@ -16,6 +16,8 @@ type TimelineNodeProps = {
   index: number;
 };
 
+// just store the info of the education here what to add and what to remove 
+
 const educationData: EducationItem[] = [
   {
     id: "edu-1",

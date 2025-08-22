@@ -2,6 +2,8 @@
 import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 
+
+// this is the just the logic behind the neural network not usefull at all but considered this as important
 const NeuralNetwork = ({ nodes = 64, active = false, className }) => {
   const connections = useMemo(() => {
     return Array.from({ length: nodes * 2 }, (_, i) => ({

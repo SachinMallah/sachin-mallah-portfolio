@@ -3,6 +3,7 @@ import { motion, useMotionTemplate, useMotionValue } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
+// my information saves here
 const textContent = {
   welcome: "Welcome! Thanks for taking the time to check out my website.",
   aboutMeCommand: "sachin@portfolio:~$ about_me",

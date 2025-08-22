@@ -3,6 +3,9 @@ import React from 'react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// this is most usefull part of the entire project skills section which took me around 3 weeks to code including everything
+
+// here just add your skill in dict form name and its icon that would be stored in svg format 
 type SkillItem = {
   name: string;
   icon: React.ElementType;
@@ -196,26 +199,8 @@ const Skills = () => {
       };
       
 
-// Example icon component with updated styling
+// Python icon and svg code here
 
-// const PythonIcon = () => (
-//   <svg 
-//     viewBox="0 0 128 128" 
-//     className="w-20 h-20"
-//     xmlns="http://www.w3.org/2000/svg"
-//   >
-//     <path 
-//       fill="#306998" 
-//          d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z" 
-//          transform="translate(0 10.26)"
-//     />
-//     <path 
-//       fill="currentColor"
-//       d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.549v23.515c0 6.691 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z"
-//       transform="translate(0 10.26)"
-//     />
-//   </svg>
-// );
 const PythonIcon = () => (
   <svg 
     viewBox="0 0 128 128" 
@@ -236,8 +221,7 @@ const PythonIcon = () => (
 );
 
 
-// C++
-
+// C++ icon and svg code here
 
 const CppIcon = ({ className = "" }) => (
   <svg
@@ -261,7 +245,7 @@ const CppIcon = ({ className = "" }) => (
 
 
 
-// JavaScripts
+// JavaScripts icon and svg code here
 
 const JavascriptIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
@@ -274,7 +258,7 @@ const JavascriptIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// java 
+// java icon and svg code here
 
 const JavaIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
@@ -294,7 +278,7 @@ const JavaIcon: React.FC<IconProps> = ({ className }) => (
 
 
 
-// html
+// html icon and svg code here
 
 const HtmlIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
@@ -311,7 +295,7 @@ const HtmlIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// CSS
+// CSS icon and svg code here
 
 const CssIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
@@ -334,7 +318,7 @@ const CssIcon: React.FC<IconProps> = ({ className }) => (
 
 // machine learning start here 
 
-// my sql 
+// my sql icon and svg code here
 
 const SqlIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
@@ -352,7 +336,7 @@ const SqlIcon: React.FC<IconProps> = ({ className }) => (
 );
 
 
-// sql database
+// sql database icon and svg code here
 
 const SqldatabaseIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
@@ -406,7 +390,7 @@ const SqldatabaseIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// numpy
+// numpy icon and svg code here
 
 const NumpyIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
@@ -421,7 +405,7 @@ const NumpyIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// pandas
+// pandas icon and svg code here
 
 const PandasIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
@@ -439,7 +423,7 @@ const PandasIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// Scikit-learn
+// Scikit-learn icon and svg code here
 
 const SklearnIcon: React.FC<IconProps> = ({ className }) => (
   <svg 
@@ -458,7 +442,7 @@ const SklearnIcon: React.FC<IconProps> = ({ className }) => (
 
 
 
-// scipy
+// scipy icon and svg code here
 
 // black and white scipy as i not got the coloured scipy SVG code :)
 const SciPyIcon: React.FC<IconProps> = ({ className }) => (
@@ -473,7 +457,7 @@ const SciPyIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// matplotlib
+// matplotlib icon and svg code here
 
 const MatplotlibIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -500,7 +484,8 @@ const MatplotlibIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// seaborn
+// seaborn icon and svg code here
+
 const SeabornIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -528,7 +513,9 @@ const SeabornIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// Xgboost
+
+// Xgboost icon and svg code here
+
 const XgboostIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 128 128"
@@ -549,7 +536,8 @@ const XgboostIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// lightbgm
+// lightbgm icon and svg code here
+
 const LightgbmIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -572,7 +560,8 @@ const LightgbmIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// catboost
+// catboost icon and svg code here
+
 const CatboostIcon: React.FC<IconProps> = ({ className }) => (
   <svg
     viewBox="0 0 650 584"
@@ -600,7 +589,7 @@ const CatboostIcon: React.FC<IconProps> = ({ className }) => (
 
 
 
-// mlflow
+// mlflow icon and svg code here
 
 const MlflowIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -622,7 +611,7 @@ const MlflowIcon: React.FC<IconProps> = ({ className }) => (
 
 
 
-// tensorflow
+// tensorflow icon and svg code here
 
 const TensorflowIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -645,7 +634,7 @@ const TensorflowIcon: React.FC<IconProps> = ({ className }) => (
 );
 
 
-// keras
+// keras icon and svg code here
 
 const KerasIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -665,7 +654,7 @@ const KerasIcon: React.FC<IconProps> = ({ className }) => (
 );
 
 
-// pytorch
+// pytorch icon and svg code here
 
 const PytorchIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -691,7 +680,7 @@ const PytorchIcon: React.FC<IconProps> = ({ className }) => (
 );
 
 
-// fastai
+// fastai icon and svg code here
 
 const FastapiIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -710,7 +699,7 @@ const FastapiIcon: React.FC<IconProps> = ({ className }) => (
 );
 
 
-// jax
+// jax icon and svg code here
 
 const JaxIcon: React.FC<IconProps> = ({ className }) => {
   const jaxBlue = "#003E94"; 
@@ -748,7 +737,7 @@ const JaxIcon: React.FC<IconProps> = ({ className }) => {
   );
 }
 
-// dask
+// dask icon and svg code here
 
 const DaskIcon: React.FC<IconProps> = ({ className }) => {
   const daskYellow = "#FFD166";
@@ -790,7 +779,7 @@ const DaskIcon: React.FC<IconProps> = ({ className }) => {
 
 // web development start here
 
-// react
+// react icon and svg code here
 
 const ReactIcon: React.FC<IconProps> = ({ className }) => {
   const reactBlue = "#61DAFB";
@@ -814,7 +803,7 @@ const ReactIcon: React.FC<IconProps> = ({ className }) => {
 
 
 
-// next js
+// next js icon and svg code here
 
 const NextjsIcon: React.FC<IconProps> = ({ className }) => ( 
   <svg
@@ -862,7 +851,7 @@ const NextjsIcon: React.FC<IconProps> = ({ className }) => (
 
 
 
-// plotly
+// plotly icon and svg code here
 
 const PlotlyIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -888,7 +877,7 @@ const PlotlyIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// tensor flow serving
+// tensor flow serving icon and svg code here
 
 const TfServingIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -911,7 +900,7 @@ const TfServingIcon: React.FC<IconProps> = ({ className }) => (
 );
 
 
-// ONNX
+// ONNX icon and svg code here
 
 const OnnxIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -931,7 +920,7 @@ const OnnxIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// gradio
+// gradio icon and svg code here
 
 const GradioIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -965,7 +954,7 @@ const GradioIcon: React.FC<IconProps> = ({ className }) => (
 );
 
 
-// streamlit 
+// streamlit icon and svg code here
 
 const StreamlitIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -991,7 +980,7 @@ const StreamlitIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// wand
+// wand icon and svg code here
 
 const WandbIcon: React.FC<IconProps> = ({ className }) => {
   const dotColor = "#FFC107"; 
@@ -1023,7 +1012,7 @@ const WandbIcon: React.FC<IconProps> = ({ className }) => {
 }
 
 
-// airflow
+// airflow icon and svg code here
 
 const AirflowIcon: React.FC<IconProps> = ({ className }) => {
   const airflowBlue = "#017CEE";
@@ -1060,7 +1049,7 @@ const AirflowIcon: React.FC<IconProps> = ({ className }) => {
   );
 }
 
-// prefect
+// prefect icon and svg code here
 
 const PrefectIcon: React.FC<IconProps> = ({ className }) =>  {
   const prefectColor = "#17202A"; 
@@ -1081,7 +1070,7 @@ const PrefectIcon: React.FC<IconProps> = ({ className }) =>  {
   );
 }
 
-// hugging face 
+// hugging face icon and svg code here
 
 const HuggingfaceIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1145,7 +1134,7 @@ const HuggingfaceIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// kaggle
+// kaggle icon and svg code here
 
 const KaggleIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1163,7 +1152,7 @@ const KaggleIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// tailwind
+// tailwind icon and svg code here
 
 const TailwindIcon: React.FC<IconProps> = ({ className }) => (
   <svg viewBox="0 0 24 24" className={className} fill="#06B6D4" xmlns="http://www.w3.org/2000/svg">
@@ -1173,7 +1162,7 @@ const TailwindIcon: React.FC<IconProps> = ({ className }) => (
 );
 
 
-// node js
+// node js icon and svg code here
 
 const NodejsIcon : React.FC<IconProps> = ({ className }) =>  {
   const nodeJSColor = "#8CC84B"; 
@@ -1194,7 +1183,7 @@ const NodejsIcon : React.FC<IconProps> = ({ className }) =>  {
   );
 };
 
-// express js
+// express js icon and svg code here
 
 const ExpressIcon: React.FC<IconProps> = ({ className }) =>  {
   const expressJSColor = "#bbbbbb";
@@ -1216,7 +1205,7 @@ const ExpressIcon: React.FC<IconProps> = ({ className }) =>  {
   );
 };
 
-// graph ql
+// graph ql icon and svg code here
 
 const GraphqlIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1240,7 +1229,7 @@ const GraphqlIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// mongodb
+// mongodb icon and svg code here
 
 const MongodbIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1260,7 +1249,7 @@ const MongodbIcon: React.FC<IconProps> = ({ className }) => (
 );
 
 
-// postresql
+// postresql icon and svg code here
 
 const PostgresqlIcon: React.FC<IconProps> = ({ className }) => {
   const postgresqlBlue = "#336791";
@@ -1281,7 +1270,7 @@ const PostgresqlIcon: React.FC<IconProps> = ({ className }) => {
   );
 };
 
-// vs code
+// vs code icon and svg code here
 
 const VscodeIcon: React.FC<IconProps> = ({ className }) => (
   <svg viewBox="0 0 24 24" className={className} fill="#007ACC" xmlns="http://www.w3.org/2000/svg">
@@ -1289,7 +1278,7 @@ const VscodeIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// firebase 
+// firebase icon and svg code here
 
 const FirebaseIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1325,7 +1314,7 @@ const FirebaseIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// supabase
+// supabase icon and svg code here
 
 const SupabaseIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1383,7 +1372,7 @@ const SupabaseIcon: React.FC<IconProps> = ({ className }) => (
 
 // tool platforms start here
 
-// git
+// git icon and svg code here
 
 const GitIcon: React.FC<IconProps> = ({ className }) => (
   <svg viewBox="0 0 24 24" className={className} fill="#F05032" xmlns="http://www.w3.org/2000/svg">
@@ -1392,7 +1381,7 @@ const GitIcon: React.FC<IconProps> = ({ className }) => (
 );
 
 
-// docker
+// docker icon and svg code here
 
 const DockerIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1428,7 +1417,7 @@ const DockerIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// jupyter
+// jupyter icon and svg code here
 
 const JupyterIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1458,7 +1447,7 @@ const JupyterIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// google collab
+// google collab icon and svg code here
 
 const ColabIcon: React.FC<IconProps> = ({ className }) => {
   const collabYellow = "#f9ab00"; 
@@ -1497,7 +1486,7 @@ const ColabIcon: React.FC<IconProps> = ({ className }) => {
   );
 };
 
-// postman
+// postman icon and svg code here
 
 const PostmanIcon: React.FC<IconProps> = ({ className }) => {
   const postmanOrange = "#FF6C37";
@@ -1625,7 +1614,7 @@ const PostmanIcon: React.FC<IconProps> = ({ className }) => {
   );
 };
 
-// vercel
+// vercel icon and svg code here
 
 const VercelIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1644,7 +1633,7 @@ const VercelIcon: React.FC<IconProps> = ({ className }) => (
 );
 
 
-// netlify
+// netlify icon and svg code here
 
 const NetlifyIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1666,7 +1655,7 @@ const NetlifyIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// aws
+// aws icon and svg code here
 
 const AwsIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1688,7 +1677,7 @@ const AwsIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// gcp
+// gcp icon and svg code here
 
 const GcpIcon: React.FC<IconProps> = ({ className }) => {
   const gcpBlue = "#4285F4";
@@ -1731,7 +1720,7 @@ const GcpIcon: React.FC<IconProps> = ({ className }) => {
   );
 }
 
-// azure
+// azure icon and svg code here
 
 const AzureIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1781,7 +1770,7 @@ const AzureIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// heroku
+// heroku icon and svg code here
 
 const HerokuIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1799,7 +1788,7 @@ const HerokuIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// figma
+// figma icon and svg code here
 
 const FigmaIcon: React.FC<IconProps> = ({ className }) => (
   <svg
@@ -1833,7 +1822,7 @@ const FigmaIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
-// notion 
+// notion icon and svg code here
 
 const NotionIcon: React.FC<IconProps> = ({ className }) => (
   <svg

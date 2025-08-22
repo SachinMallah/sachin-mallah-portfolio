@@ -3,6 +3,8 @@ import { ReactNode, MouseEventHandler } from 'react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// dont change anything here its perfect header made for mobile and also for laptop/pc
+
 type NavLinkProps = {
   href: string;
   onClick?: MouseEventHandler<HTMLAnchorElement>;

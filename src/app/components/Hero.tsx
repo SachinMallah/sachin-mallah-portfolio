@@ -1,6 +1,9 @@
 'use client';
 import { useEffect, useState, useRef, useMemo } from 'react';
 
+//Dont change anything here because one change can make the neural network not to work properly its advanced with logic and code 
+
+// no of layer and no of the nodes we can put here
 const NEURAL_NETWORK_CONFIG = {
   network: {
     layers: [7, 9, 7, 5],
@@ -227,7 +230,7 @@ export default function Hero() {
           </h2>
         </div>
 
-        
+        {/* name and all content of hero section start here except the neural network */}
         <h1 className="text-6xl md:text-7xl font-bold mb-6 text-white">
           SACHIN MALLAH
         </h1>
@@ -286,6 +289,7 @@ export default function Hero() {
         </div>
       </div>
 
+{/* here is the custom css not mentioned in the layout css */}
       <style jsx>{`
         @keyframes blink {
           0%, 100% { opacity: 1; }
