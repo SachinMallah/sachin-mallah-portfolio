@@ -23,13 +23,20 @@ const textContent = {
 };
 
 const About = () => {
-  
+  const [isMobile, setIsMobile] = useState(false)
   const [welcome, setWelcome] = useState('')
   const [aboutMeCommand, setAboutMeCommand] = useState('')
   const [aboutMeLines, setAboutMeLines] = useState<string[]>([])
   const [strengthsCommand, setStrengthsCommand] = useState('')
   const [strengthsLines, setStrengthsLines] = useState<string[]>([])
   const [typingStage, setTypingStage] = useState(0)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   
   const mouseX = useMotionValue(0)
@@ -40,7 +47,18 @@ const About = () => {
 
   
   useEffect(() => {
-    let isCancelled = false 
+    if (isMobile) {
+      // On mobile, show all text immediately without typing animation
+      setWelcome(textContent.welcome)
+      setAboutMeCommand(textContent.aboutMeCommand)
+      setAboutMeLines(textContent.aboutMeLines)
+      setStrengthsCommand(textContent.strengthsCommand)
+      setStrengthsLines(textContent.strengthsLines)
+      setTypingStage(4)
+      return;
+    }
+
+    let isCancelled = false
 
     const typeString = async (text: string, updater: (val: string) => void) => {
       for (let i = 0; i <= text.length; i++) {
@@ -88,7 +106,7 @@ const About = () => {
 
     typeText()
     return () => { isCancelled = true }
-  }, [])
+  }, [isMobile])
 
   
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {

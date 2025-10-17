@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState, useRef, useMemo } from 'react';
+import styles from './Hero.module.css';
 
 //Dont change anything here because one change can make the neural network not to work properly its advanced with logic and code 
 
@@ -64,16 +65,28 @@ export default function Hero() {
   const [currentText, setCurrentText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  
+  const [isMobile, setIsMobile] = useState(false);
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const nodes = useRef<NodeType[][]>([]);
   const connections = useRef<ConnectionType[]>([]);
-  const animationFrameId = useRef<number | null>(null); 
+  const animationFrameId = useRef<number | null>(null);
   const pixelRatio = useRef(1);
 
   const config = useMemo(() => NEURAL_NETWORK_CONFIG, []);
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return; // Disable animation on mobile for performance
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -188,7 +201,7 @@ export default function Hero() {
         cancelAnimationFrame(animationFrameId.current);
       }
     };
-  }, [config]); 
+  }, [config, isMobile]);
 
   useEffect(() => {
     const currentTitle = TITLE_TEXTS[currentIndex];
@@ -226,7 +239,7 @@ export default function Hero() {
           <span className="text-xl text-gray-300 font-light mr-2">Hi, I&apos;m</span>
           <h2 className="text-2xl font-medium text-green-400">
             {currentText}
-            <span className="cursor">|</span>
+            <span className={styles.cursor}>|</span>
           </h2>
         </div>
 
@@ -262,8 +275,8 @@ export default function Hero() {
         <div className="flex justify-center gap-6 mt-8">
           {[
             ['https://www.instagram.com/sachinmallah_?igsh=enZ5em53M2Q3b3Yx', 'Instagram'],
-            ['https://github.com/SachinMallah', 'GitHub'],
-            ['https://www.linkedin.com/in/sachin-mallah-1b0a3527a', 'LinkedIn']
+            ['https://github.com/SachinMallah26', 'GitHub'],
+            ['https://www.linkedin.com/in/sachin-mallah-sm', 'LinkedIn']
           ].map(([href, label]) => (
             <a 
               key={href}
@@ -289,18 +302,7 @@ export default function Hero() {
         </div>
       </div>
 
-{/* here is the custom css not mentioned in the layout css */}
-      <style jsx>{`
-        @keyframes blink {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-        .cursor {
-          animation: blink 1s infinite;
-          margin-left: 2px;
-          color: white;
-        }
-      `}</style>
+
     </section>
   );
 }

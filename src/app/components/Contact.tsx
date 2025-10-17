@@ -49,7 +49,7 @@ export default function Contact() {
                 // {
                 //   icon: Envelope,
                 //   label: "Email",
-                //   value: "sachinmallah118@gmail.com",
+                //   value: "sachinmallah26@gmail.com",
                 //   href:
                 //     "mailto:yourmailheretowherecontact@gmail.com?subject=Contact%20from%20Website&body=Hi%2C%20I%20would%20like%20to%20connect%20with%20you.",
                 // },
@@ -57,13 +57,13 @@ export default function Contact() {
                   icon: GithubLogo,
                   label: "GitHub",
                   value: "sachinmallah",
-                  href: "https://github.com/SachinMallah",
+                  href: "https://github.com/SachinMallah26",
                 },
                 {
                   icon: LinkedinLogo,
                   label: "LinkedIn",
                   value: "sachin-mallah",
-                  href: "https://www.linkedin.com/in/sachin-mallah-1b0a3527a",
+                  href: "https://www.linkedin.com/in/sachin-mallah-sm",
                 },
               ].map((item, index) => (
                 <motion.a
@@ -120,7 +120,7 @@ export default function Contact() {
                   Click the button below to open your mail app and send me a message directly!
                 </p>
                 <a
-                  href="mailto:sachinmallah118@gmail.com?subject=Contact%20from%20Website&body=Hi%2C%20I%20would%20like%20to%20connect%20with%20you."
+                  href="mailto:sachinmallah26@gmail.com?subject=Contact%20from%20Website&body=Hi%2C%20I%20would%20like%20to%20connect%20with%20you."
                   className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-gray-700 to-gray-900 rounded-xl text-white font-medium hover:bg-gradient-to-l transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)]"
                 >
                   <Envelope className="w-6 h-6 mr-2" />
