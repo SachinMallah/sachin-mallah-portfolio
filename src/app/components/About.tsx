@@ -150,7 +150,7 @@ const About = () => {
               className="bg-black/80 backdrop-blur-xl rounded-3xl border-2 border-gray-500/30 shadow-2xl overflow-hidden p-4"
             >
               <Image
-                src="/images/sachinmain.png"
+                src="/images/sachinmainn.png"
                 alt="Sachin Kumar"
                 width={3684}
                 height={4906}
